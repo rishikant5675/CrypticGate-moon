@@ -1,0 +1,63 @@
+// CrypticGate - Allowlist Membership Compact Circuit
+// Proves membership in a private allowlist commitment set without revealing user identity.
+
+include "std";
+
+export type Commitment = Bytes[32];
+export type Nullifier = Bytes[32];
+
+// Witness functions provide private data supplied by the prover off-chain.
+export witness getMemberSecret(): Bytes[32];
+export witness getMemberSalt(): Bytes[32];
+export witness getMerklePath(): Vector<8, Bytes[32]>;
+export witness getMerkleIndices(): Vector<8, Boolean>;
+
+// Circuit function: computes commitment hash from private secret + salt
+export circuit computeCommitment(secret: Bytes[32], salt: Bytes[32]): Commitment {
+  return persistent_hash<Tuple<Bytes[32], Bytes[32]>>([secret, salt]);
+}
+
+// Circuit function: computes nullifier to prevent double-proving
+export circuit computeNullifier(secret: Bytes[32]): Nullifier {
+  return persistent_hash<Tuple<Bytes[32], String>>([secret, "CRYPTIC_GATE_NULLIFIER"]);
+}
+
+// Circuit function: verifies Merkle proof for a given leaf against a root
+export circuit verifyMerkleProof(
+  leaf: Commitment,
+  root: Bytes[32],
+  path: Vector<8, Bytes[32]>,
+  indices: Vector<8, Boolean>
+): Boolean {
+  var current: Bytes[32] = leaf;
+  
+  for (var i: Uint<8> = 0; i < 8; i = i + 1) {
+    const sibling = path[i];
+    const isRight = indices[i];
+    
+    if (isRight) {
+      current = persistent_hash<Tuple<Bytes[32], Bytes[32]>>([sibling, current]);
+    } else {
+      current = persistent_hash<Tuple<Bytes[32], Bytes[32]>>([current, sibling]);
+    }
+  }
+  
+  return current == root;
+}
+
+// Main Zero-Knowledge membership proof circuit
+export circuit proveMembershipCircuit(expectedRoot: Bytes[32]): Tuple<Boolean, Nullifier> {
+  const secret = getMemberSecret();
+  const salt = getMemberSalt();
+  const path = getMerklePath();
+  const indices = getMerkleIndices();
+  
+  const commitment = computeCommitment(secret, salt);
+  const isMember = verifyMerkleProof(commitment, expectedRoot, path, indices);
+  const nullifier = computeNullifier(secret);
+  
+  // Assert member is valid without leaking secret or commitment
+  assert(isMember, "Invalid allowlist proof: secret commitment does not match Merkle root");
+  
+  return [isMember, nullifier];
+}
