@@ -1,0 +1,19 @@
+{
+  "name": "cryptic-gate",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Private Allowlist Access dApp powered by Midnight ZK proofs",
+  "scripts": {
+    "dev": "npm run --prefix frontend dev",
+    "build": "npm run --prefix contract build && npm run --prefix frontend build && npm run --prefix indexer build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "compile:contract": "npm run --prefix contract build",
+    "start:indexer": "npm run --prefix indexer start"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.2"
+  }
+}
