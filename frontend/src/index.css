@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #0B0D1B;
+    color: #F1F5F9;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+/* Custom Glassmorphism & Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #141833;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2C346B;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00F0FF;
+}
