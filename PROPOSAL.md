@@ -1,0 +1,10 @@
+# Product Proposal: CrypticGate
+
+### Problem Statement
+Exclusive online communities, token presales, DAO governance panels, and gated digital infrastructure require verifying member authorization before granting privilege or access. Traditional blockchains (such as Ethereum and standard EVMs) force users to publish their wallet addresses or signatures on-chain to prove allowlist membership. This public linking exposes users' complete transaction history, net worth, real-world identity associations, and activity timing to any external observer, creating severe privacy violations and target vulnerabilities for high-value participants.
+
+### Solution Overview
+CrypticGate is a privacy-preserving allowlist access control protocol powered by Midnight blockchain zero-knowledge technology. An administrator stores a cryptographic Merkle root of member commitments (hashed secrets and salts) on-chain while keeping individual member identities strictly off-chain. When a user requests access, CrypticGate executes an off-chain Compact ZK circuit that verifies their secret exists in the allowlist Merkle tree and generates a single-use nullifier. The smart contract validates the zero-knowledge proof and publishes `accessGranted = true` to the public ledger without ever learning or revealing who the user is.
+
+### Why Midnight's Privacy Model is Essential
+Traditional EVM smart contracts rely on public state mapping (`mapping(address => bool)`), making every allowlisted address publicly readable by anyone scanning the block explorer. Attempts to obfuscate on EVM (like relayers or centralized verification servers) introduce trusted third parties or metadata timing leaks. Midnight's dual-state architecture—combining private state with zero-knowledge witnesses in the Compact language—is uniquely capable of enforcing zero-knowledge membership proofs natively. On Midnight, the public ledger only verifies that *a valid member* satisfied the cryptographic circuit constraints, guaranteeing absolute selective disclosure and zero identity leakage.
