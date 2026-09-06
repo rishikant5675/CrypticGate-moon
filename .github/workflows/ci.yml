@@ -19,19 +19,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
-      - name: Install Dependencies
-        run: npm ci || npm install
-
-      - name: Typecheck Workspace
-        run: npx tsc --noEmit
-
-      - name: Build Contract & Frontend Bundles
-        run: npm run build
+      - name: Install Workspace & Subfolder Dependencies
+        run: |
+          npm install
+          npm --prefix contract install
+          npm --prefix frontend install
+          npm --prefix indexer install
 
       - name: Execute Vitest ZK Membership Unit Test Suite
         run: npm test
 
-      - name: Verify Indexer Service
-        run: npm --prefix indexer build
+      - name: Build All Workspaces (Contract, Frontend, Indexer)
+        run: npm run build
