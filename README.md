@@ -5,7 +5,7 @@
 [![Midnight SDK](https://img.shields.io/badge/Midnight-Compact%20ZK-7C3AED)](https://midnight.network)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-Live Demo: [https://crypticgate-demo.vercel.app](https://crypticgate-demo.vercel.app)
+Live Demo: [https://crypticgate-demo.vercel.app](https://crypticgate-demo.vercel.app) | 🎬 **Demo Video**: [Watch 1-Min Video](https://photos.app.goo.gl/r2iaNzsMzdTSsBER8)
 
 ---
 
@@ -153,7 +153,11 @@ npm test
 
 ---
 
-## 🎬 1-Minute Demo Video Script / Outline
+## 🎬 1-Minute Demo Video & Script Outline
+
+🎥 **Watch Full Demo Video**: [https://photos.app.goo.gl/r2iaNzsMzdTSsBER8](https://photos.app.goo.gl/r2iaNzsMzdTSsBER8)
+
+[![Watch Demo Video](https://img.shields.io/badge/Demo_Video-Watch_on_Google_Photos-FF4500?style=for-the-badge&logo=googlephotos)](https://photos.app.goo.gl/r2iaNzsMzdTSsBER8)
 
 - **0:00 - 0:15 | Introduction & Wallet Connection**
   - Show CrypticGate dashboard. Click **Connect Lace / Freighter Wallet**.
