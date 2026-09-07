@@ -17,6 +17,22 @@ Modern dApps frequently need to gate access—whether for token whitelist sales,
 
 ---
 
+## 📸 Screenshots & Visual Evidence
+
+### 1. Application UI Dashboard
+![CrypticGate UI Dashboard](./docs/screenshots/ui_dashboard.png)
+*CrypticGate interactive dashboard featuring Lace & Freighter wallet connection, ZK proof generator, and live ledger event monitor.*
+
+### 2. Passing Unit Tests Output (6/6 Passed)
+![Vitest Unit Tests Passing](./docs/screenshots/unit_tests.png)
+*Vitest unit test suite validating valid member proofs, non-member rejection, and zero identity leakage on public ledger.*
+
+### 3. GitHub Actions CI/CD Pipeline
+![GitHub Actions CI/CD Passing Run](./docs/screenshots/ci_cd_workflow.png)
+*Automated GitHub Actions CI/CD pipeline executing contract compilation, frontend build, and full test suite on push.*
+
+---
+
 ## 🏗️ Architecture Diagram
 
 ```
@@ -140,7 +156,7 @@ npm test
 ## 🎬 1-Minute Demo Video Script / Outline
 
 - **0:00 - 0:15 | Introduction & Wallet Connection**
-  - Show CrypticGate dashboard. Click **Connect Lace Wallet**.
+  - Show CrypticGate dashboard. Click **Connect Lace / Freighter Wallet**.
   - Highlight network badge: *Midnight Testnet*.
 
 - **0:15 - 0:35 | ZK Proof Generation**
@@ -155,6 +171,15 @@ npm test
 - **0:50 - 1:00 | Privacy Guarantee Inspection**
   - Open ledger state inspector.
   - Highlight that Alice's address, identity, secret, and tree index are **completely absent** from the public ledger.
+
+---
+
+## 👤 Author & GitHub Information
+
+- **Author / Developer**: `rishikant5675`
+- **Email**: `rishigshshsh@gmail.com`
+- **GitHub Repository**: [https://github.com/rishikant5675/CrypticGate-moon](https://github.com/rishikant5675/CrypticGate-moon)
+- **Hackathon Project**: CrypticGate — Midnight Private Allowlist Access
 
 ---
 
