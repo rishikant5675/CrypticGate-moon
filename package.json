@@ -3,7 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "description": "Private Allowlist Access dApp powered by Midnight ZK proofs",
+  "workspaces": [
+    "contract",
+    "frontend",
+    "indexer"
+  ],
   "scripts": {
+    "postinstall": "npm --prefix contract install && npm --prefix frontend install && npm --prefix indexer install",
     "dev": "npm run --prefix frontend dev",
     "build": "npm run --prefix contract build && npm run --prefix frontend build && npm run --prefix indexer build",
     "test": "vitest run",
@@ -13,6 +19,10 @@
   },
   "devDependencies": {
     "@types/node": "^20.11.0",
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "^18.2.19",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "typescript": "^5.3.3",
     "vitest": "^1.2.2"
   }

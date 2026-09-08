@@ -1,0 +1,8 @@
+{
+  "buildCommand": "npm run --prefix contract build && npm run --prefix frontend build",
+  "outputDirectory": "frontend/dist",
+  "framework": "vite",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
