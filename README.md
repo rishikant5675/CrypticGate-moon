@@ -5,7 +5,7 @@
 [![Midnight SDK](https://img.shields.io/badge/Midnight-Compact%20ZK-7C3AED)](https://midnight.network)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-Live Demo: [https://crypticgate-demo.vercel.app](https://crypticgate-demo.vercel.app) | 🎬 **Demo Video**: [Watch 1-Min Video](https://photos.app.goo.gl/r2iaNzsMzdTSsBER8)
+Live Demo: [https://cryptic-gate-moon-eta.vercel.app/](https://cryptic-gate-moon-eta.vercel.app/) | 🎬 **Demo Video**: [Watch 1-Min Video](https://photos.app.goo.gl/r2iaNzsMzdTSsBER8)
 
 ---
 
