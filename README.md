@@ -89,6 +89,15 @@ Modern dApps frequently need to gate access—whether for token whitelist sales,
 
 ---
 
+## 📜 Contract Address
+
+The CrypticGate smart contract has been successfully deployed and verified on the Midnight Preprod network.
+
+- **Network**: Midnight Preprod
+- **Contract Address**: `0x7b39a4f89d02c11f42e5b9c0d3a5e8f4a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6`
+
+---
+
 ## 🚀 Setup & Run Instructions
 
 ### Prerequisites

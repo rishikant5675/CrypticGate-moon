@@ -8,3 +8,6 @@ CrypticGate is a privacy-preserving allowlist access control protocol powered by
 
 ### Why Midnight's Privacy Model is Essential
 Traditional EVM smart contracts rely on public state mapping (`mapping(address => bool)`), making every allowlisted address publicly readable by anyone scanning the block explorer. Attempts to obfuscate on EVM (like relayers or centralized verification servers) introduce trusted third parties or metadata timing leaks. Midnight's dual-state architecture—combining private state with zero-knowledge witnesses in the Compact language—is uniquely capable of enforcing zero-knowledge membership proofs natively. On Midnight, the public ledger only verifies that *a valid member* satisfied the cryptographic circuit constraints, guaranteeing absolute selective disclosure and zero identity leakage.
+
+### Target Audience and Use Cases
+CrypticGate is designed for DAOs, premium NFT communities, compliance teams, and token presale organizers who require strict access control without compromising user anonymity. The protocol ensures that high-value participants can prove their credentials without revealing their identity to the public ledger, protecting them from targeted attacks and privacy leaks.
