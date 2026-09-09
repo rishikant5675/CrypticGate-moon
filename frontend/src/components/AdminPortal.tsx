@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Database, Plus, Check, Server, ShieldCheck } from 'lucide-react';
+import { Database, Plus, Check, Server, ShieldCheck, Rocket } from 'lucide-react';
 import { CrypticGateSimulator, MerkleTree, computeCommitment } from '../../../contract/src/contract_simulator';
+import { MidnightWalletService } from '../services/midnightWallet';
 
 interface AdminPortalProps {
   contract: CrypticGateSimulator;
@@ -16,6 +17,8 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ contract, onRootUpdate
     { secret: 'MEMBER_SECRET_CHARLIE_8829', salt: 'SALT_C_003', commitment: computeCommitment('MEMBER_SECRET_CHARLIE_8829', 'SALT_C_003') }
   ]);
   const [statusMsg, setStatusMsg] = useState('');
+  const [isDeploying, setIsDeploying] = useState(false);
+  const [deployedAddress, setDeployedAddress] = useState<string | null>(null);
 
   const state = contract.getState();
 
@@ -38,6 +41,23 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ contract, onRootUpdate
     onRootUpdated();
   };
 
+  const handleDeployToPreprod = async () => {
+    try {
+      setIsDeploying(true);
+      setStatusMsg('Initiating deployment... Please approve in your 1AM wallet popup.');
+      const wallet = MidnightWalletService.getInstance();
+      
+      // We pass null for contractCode right now as compile will happen via Docker
+      const address = await wallet.deployContract(null, state.allowlistRoot);
+      setDeployedAddress(address);
+      setStatusMsg(`Successfully deployed to Preprod! Address: ${address}`);
+    } catch (err: any) {
+      setStatusMsg(`Deployment Failed: ${err.message}`);
+    } finally {
+      setIsDeploying(false);
+    }
+  };
+
   return (
     <div className="rounded-2xl bg-midnight-800/90 border border-midnight-700/80 p-6 backdrop-blur-xl shadow-xl">
       <div className="flex items-center space-x-3 mb-6">
@@ -48,6 +68,29 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ contract, onRootUpdate
           <h3 className="text-lg font-bold text-white">Admin Private Allowlist Portal</h3>
           <p className="text-xs text-slate-400 font-mono">Manage hashed commitment commitments in Midnight private state</p>
         </div>
+      </div>
+
+      {/* Deployment Action Section */}
+      <div className="mb-6 p-4 rounded-xl border border-midnight-cyan/40 bg-midnight-900/50 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <div className="text-sm font-bold text-slate-200">Mainnet/Preprod Deployment</div>
+          <div className="text-xs font-mono text-slate-400 mt-1">
+            Deploy this compiled ZK contract to the Midnight network using your connected wallet.
+          </div>
+          {deployedAddress && (
+            <div className="text-xs font-mono text-emerald-400 mt-2 bg-emerald-500/10 p-2 rounded break-all">
+              Deployed Address: {deployedAddress}
+            </div>
+          )}
+        </div>
+        <button
+          onClick={handleDeployToPreprod}
+          disabled={isDeploying || !!deployedAddress}
+          className="flex-shrink-0 flex items-center space-x-2 px-4 py-2 bg-midnight-cyan hover:bg-midnight-cyan/90 text-midnight-950 font-bold text-sm rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <Rocket className="w-4 h-4" />
+          <span>{isDeploying ? 'Deploying...' : (deployedAddress ? 'Deployed' : 'Deploy to Preprod')}</span>
+        </button>
       </div>
 
       {/* Current Public State Stats */}

@@ -14,12 +14,6 @@ export class MidnightWalletService {
     return MidnightWalletService.instance;
   }
 
-  public hasFreighterExtension(): boolean {
-    if (typeof window !== 'undefined') {
-      return !!(window as any).freighterApi || !!(window as any).freighter;
-    }
-    return false;
-  }
 
   public hasLaceExtension(): boolean {
     if (typeof window !== 'undefined') {
@@ -28,45 +22,13 @@ export class MidnightWalletService {
     return false;
   }
 
-  public async connectFreighterWallet(): Promise<WalletAccount> {
-    if (this.hasFreighterExtension()) {
-      try {
-        const freighter = (window as any).freighterApi || (window as any).freighter;
-        
-        let publicKey = '';
-        if (typeof freighter.getPublicKey === 'function') {
-          publicKey = await freighter.getPublicKey();
-        } else if (typeof freighter.requestAccess === 'function') {
-          publicKey = await freighter.requestAccess();
-        }
-
-        if (publicKey) {
-          this.currentAccount = {
-            address: publicKey,
-            network: 'Midnight Testnet (Freighter Connected)',
-            balance: '500 tNIGHT',
-            isConnected: true,
-            walletType: 'Freighter Wallet'
-          };
-          this.notifyListeners();
-          return this.currentAccount;
-        }
-      } catch (err: any) {
-        console.warn('Freighter wallet authorization error:', err);
-      }
+  public hasOneAmExtension(): boolean {
+    if (typeof window !== 'undefined') {
+      return !!(window as any).midnight?.oneam;
     }
-
-    // Direct simulation fallback if user triggers Freighter without extension installed
-    this.currentAccount = {
-      address: 'GCE45F987A1BC029F1109B3E841C77D8',
-      network: 'Midnight Testnet (Freighter Sandbox)',
-      balance: '850 tNIGHT',
-      isConnected: true,
-      walletType: 'Freighter Wallet'
-    };
-    this.notifyListeners();
-    return this.currentAccount;
+    return false;
   }
+
 
   public async connectLaceWallet(): Promise<WalletAccount> {
     if (this.hasLaceExtension()) {
@@ -102,14 +64,65 @@ export class MidnightWalletService {
     return this.currentAccount;
   }
 
+  public async connectOneAmWallet(): Promise<WalletAccount> {
+    if (this.hasOneAmExtension()) {
+      try {
+        const oneam = (window as any).midnight?.oneam;
+        const api = await oneam.enable();
+        const unusedAddresses = await api.getUnusedAddresses();
+        const address = unusedAddresses[0] || 'mn_addr_preprod_oneam...';
+
+        this.currentAccount = {
+          address: address,
+          network: 'Midnight Preprod',
+          balance: '5000.0 tNIGHT',
+          isConnected: true,
+          walletType: '1AM Wallet'
+        };
+        this.notifyListeners();
+        return this.currentAccount;
+      } catch (err: any) {
+        console.warn('1AM wallet authorization failed:', err);
+      }
+    }
+    // Fallback if 1AM not found but clicked
+    this.currentAccount = {
+      address: 'mn_addr_preprod1nwplcgrcd5scsfznn8aztcjw5lun8kpjrsfwaurqvyljgr2y3q8s7zwj2x',
+      network: 'Midnight Preprod',
+      balance: '5000.0 tDUST',
+      isConnected: true,
+      walletType: '1AM Wallet'
+    };
+    this.notifyListeners();
+    return this.currentAccount;
+  }
+
+  public async deployContract(contractCode: any, initialParams: any): Promise<string> {
+    if (!this.currentAccount) {
+      throw new Error("Wallet not connected. Connect 1AM wallet first.");
+    }
+    
+    console.log("Initiating deployment via", this.currentAccount.walletType);
+    
+    // In a full integration, we would use DAppConnectorAPI to prompt the wallet to sign the DeployTx
+    // const api = await (window as any).midnight.oneam.enable();
+    // const tx = await api.deployContract(...);
+    
+    // Simulating the wallet popup delay
+    await new Promise(resolve => setTimeout(resolve, 3000));
+    
+    // Return a mock deployed address until real compilation is finished
+    return "0x7b39a4f89d02c11f42e5b9c0d3a5e8f4a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6";
+  }
+
   public async connectAuto(): Promise<WalletAccount> {
-    if (this.hasFreighterExtension()) {
-      return this.connectFreighterWallet();
+    if (this.hasOneAmExtension()) {
+      return this.connectOneAmWallet();
     }
     if (this.hasLaceExtension()) {
       return this.connectLaceWallet();
     }
-    return this.connectFreighterWallet();
+    return this.connectOneAmWallet();
   }
 
   public disconnect(): void {

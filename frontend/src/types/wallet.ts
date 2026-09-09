@@ -3,7 +3,7 @@ export interface WalletAccount {
   network: string;
   balance: string;
   isConnected: boolean;
-  walletType?: 'Freighter Wallet' | 'Lace Wallet' | 'Midnight Sandbox';
+  walletType?: '1AM Wallet' | 'Lace Wallet' | 'Midnight Sandbox';
 }
 
 export interface MidnightWalletState {
@@ -11,7 +11,7 @@ export interface MidnightWalletState {
   isConnecting: boolean;
   error: string | null;
   hasLaceExtension: boolean;
-  hasFreighterExtension: boolean;
+  hasOneAmExtension: boolean;
 }
 
 export interface AllowlistStats {

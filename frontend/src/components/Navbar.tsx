@@ -5,20 +5,20 @@ import { MidnightWalletService } from '../services/midnightWallet';
 
 interface NavbarProps {
   account: WalletAccount | null;
-  onConnectFreighter: () => void;
+  onConnectOneAm: () => void;
   onConnectLace: () => void;
   onDisconnect: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   account,
-  onConnectFreighter,
+  onConnectOneAm,
   onConnectLace,
   onDisconnect
 }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const walletService = MidnightWalletService.getInstance();
-  const hasFreighter = walletService.hasFreighterExtension();
+  const hasOneAm = walletService.hasOneAmExtension();
 
   return (
     <header className="sticky top-0 z-50 backdrop-blur-md bg-midnight-900/80 border-b border-midnight-700/60 shadow-lg">
@@ -70,14 +70,14 @@ export const Navbar: React.FC<NavbarProps> = ({
           ) : (
             <div className="relative">
               <div className="flex items-center gap-2">
-                {/* Direct Connect Freighter Button */}
+                {/* Direct Connect 1AM Button */}
                 <button
-                  onClick={onConnectFreighter}
+                  onClick={onConnectOneAm}
                   className="group relative inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl font-medium text-xs sm:text-sm text-midnight-900 bg-gradient-to-r from-midnight-cyan via-teal-300 to-midnight-cyan hover:brightness-110 transition-all duration-200 shadow-lg shadow-midnight-cyan/20 active:scale-95"
                 >
                   <Wallet className="w-4 h-4 text-midnight-900" />
-                  <span>Connect Freighter Wallet</span>
-                  {hasFreighter && (
+                  <span>Connect 1AM Wallet</span>
+                  {hasOneAm && (
                     <span className="ml-1 px-1.5 py-0.5 text-[9px] font-bold uppercase rounded bg-midnight-900 text-midnight-cyan">
                       Detected
                     </span>
@@ -98,13 +98,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <div className="absolute right-0 mt-2 w-64 rounded-xl bg-midnight-800 border border-midnight-700 shadow-2xl p-2 z-50 text-xs font-mono">
                   <button
                     onClick={() => {
-                      onConnectFreighter();
+                      onConnectOneAm();
                       setShowDropdown(false);
                     }}
                     className="w-full text-left p-2.5 rounded-lg hover:bg-midnight-700/80 flex items-center justify-between text-slate-200"
                   >
-                    <span>🚀 Freighter Wallet</span>
-                    {hasFreighter ? (
+                    <span>🚀 1AM Wallet</span>
+                    {hasOneAm ? (
                       <span className="text-[10px] text-emerald-400 font-bold">Installed</span>
                     ) : (
                       <span className="text-[10px] text-slate-400">Sandbox</span>

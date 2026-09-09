@@ -21,7 +21,7 @@ Modern dApps frequently need to gate access—whether for token whitelist sales,
 
 ### 1. Application UI Dashboard
 ![CrypticGate UI Dashboard](./docs/screenshots/ui_dashboard.png)
-*CrypticGate interactive dashboard featuring Lace & Freighter wallet connection, ZK proof generator, and live ledger event monitor.*
+*CrypticGate interactive dashboard featuring Lace & 1AM wallet connection, ZK proof generator, and live ledger event monitor.*
 
 ### 2. Passing Unit Tests Output (6/6 Passed)
 ![Vitest Unit Tests Passing](./docs/screenshots/unit_tests.png)
@@ -169,7 +169,7 @@ npm test
 [![Watch Demo Video](https://img.shields.io/badge/Demo_Video-Watch_on_Google_Photos-FF4500?style=for-the-badge&logo=googlephotos)](https://photos.app.goo.gl/r2iaNzsMzdTSsBER8)
 
 - **0:00 - 0:15 | Introduction & Wallet Connection**
-  - Show CrypticGate dashboard. Click **Connect Lace / Freighter Wallet**.
+  - Show CrypticGate dashboard. Click **Connect Lace / 1AM Wallet**.
   - Highlight network badge: *Midnight Testnet*.
 
 - **0:15 - 0:35 | ZK Proof Generation**

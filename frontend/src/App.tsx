@@ -29,9 +29,9 @@ export const App: React.FC = () => {
     return () => unsubscribe();
   }, []);
 
-  const handleConnectFreighter = async () => {
+  const handleConnectOneAm = async () => {
     const wallet = MidnightWalletService.getInstance();
-    await wallet.connectFreighterWallet();
+    await wallet.connectOneAmWallet();
   };
 
   const handleConnectLace = async () => {
@@ -55,7 +55,7 @@ export const App: React.FC = () => {
     <div className="min-h-screen bg-midnight-900 text-slate-100 flex flex-col font-sans">
       <Navbar
         account={account}
-        onConnectFreighter={handleConnectFreighter}
+        onConnectOneAm={handleConnectOneAm}
         onConnectLace={handleConnectLace}
         onDisconnect={handleDisconnect}
       />

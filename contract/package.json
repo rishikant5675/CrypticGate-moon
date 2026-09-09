@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "compile": "docker run --rm -v \"%cd%\":/src midnightnetwork/compactc:latest sh -c \"compactc /src/src/cryptic_gate.compact /src/dist\""
   },
   "dependencies": {
     "crypto": "^1.0.1"
