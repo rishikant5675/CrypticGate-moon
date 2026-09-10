@@ -3,9 +3,10 @@
 
 [![CI/CD Pipeline](https://github.com/rishikant5675/CrypticGate-moon/actions/workflows/ci.yml/badge.svg)](https://github.com/rishikant5675/CrypticGate-moon/actions/workflows/ci.yml)
 [![Midnight SDK](https://img.shields.io/badge/Midnight-Compact%20ZK-7C3AED)](https://midnight.network)
+[![X Profile](https://img.shields.io/badge/X-@crypticgates-black?logo=x&logoColor=white)](https://x.com/crypticgates)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-Live Demo: [https://cryptic-gate-moon-frontend-ruddy.vercel.app/](https://cryptic-gate-moon-frontend-ruddy.vercel.app/)
+Live Demo: [https://cryptic-gate-moon-frontend-ruddy.vercel.app/](https://cryptic-gate-moon-frontend-ruddy.vercel.app/) | 🐦 **Product X Profile**: [https://x.com/crypticgates](https://x.com/crypticgates) | 🎬 **Demo Video**: [Watch 1-Min Video](https://photos.app.goo.gl/r2iaNzsMzdTSsBER8)
 
 ---
 
@@ -187,12 +188,13 @@ npm test
 
 ---
 
-## 👤 Author & GitHub Information
+## 👤 Author & Product Links
 
+- **Product X (Twitter)**: [https://x.com/crypticgates](https://x.com/crypticgates)
 - **Author / Developer**: `rishikant5675`
 - **Email**: `rishigshshsh@gmail.com`
 - **GitHub Repository**: [https://github.com/rishikant5675/CrypticGate-moon](https://github.com/rishikant5675/CrypticGate-moon)
-- **Hackathon Project**: CrypticGate — Midnight Private Allowlist Access
+- **Hackathon Project**: CrypticGate — Midnight Private Allowlist Access Protocol
 
 ---
 
