@@ -38,6 +38,24 @@ import {
   createKeystore,
   NoOpTransactionHistoryStorage,
 } from '@midnight-ntwrk/wallet-sdk';
+import * as bip39 from '@scure/bip39';
+import { wordlist } from '@scure/bip39/wordlists/english';
+
+export function normalizeWalletSeed(seed?: string): string | undefined {
+  if (!seed) return undefined;
+  const trimmed = seed.trim();
+  const words = trimmed.split(/\s+/);
+  if (words.length >= 12) {
+    try {
+      const entropy = bip39.mnemonicToEntropy(trimmed, wordlist);
+      return Buffer.from(entropy).toString('hex');
+    } catch {
+      const seedBytes = bip39.mnemonicToSeedSync(trimmed);
+      return Buffer.from(seedBytes.slice(0, 32)).toString('hex');
+    }
+  }
+  return trimmed;
+}
 
 type UnshieldedKeystore = {
   getPublicKey(): unknown;
@@ -138,7 +156,8 @@ export class MidnightWalletProvider implements MidnightProvider, WalletProvider 
       },
     };
 
-    const seeds = seed ? WalletSeeds.fromMasterSeed(seed) : WalletSeeds.generateRandom();
+    const normalizedSeed = normalizeWalletSeed(seed);
+    const seeds = normalizedSeed ? WalletSeeds.fromMasterSeed(normalizedSeed) : WalletSeeds.generateRandom();
     const keystore = createKeystore(seeds.unshielded, env.walletNetworkId as any);
 
     const unshieldedWallet = WalletFactory.createUnshieldedWallet(walletConfig as any, keystore);

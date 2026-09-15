@@ -22,8 +22,11 @@ import { HDWallet, Roles } from '@midnight-ntwrk/wallet-sdk-hd';
 import { getNetworkId } from '@midnight-ntwrk/midnight-js-network-id';
 import * as rx from 'rxjs';
 
+import { normalizeWalletSeed } from './midnight-wallet-provider.js';
+
 export const getUnshieldedSeed = (seed: string): Uint8Array<ArrayBufferLike> => {
-  const seedBuffer = Buffer.from(seed, 'hex');
+  const normalized = normalizeWalletSeed(seed) || seed;
+  const seedBuffer = Buffer.from(normalized, 'hex');
   const hdWalletResult = HDWallet.fromSeed(seedBuffer);
 
   const { hdWallet } = hdWalletResult as {
