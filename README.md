@@ -96,7 +96,7 @@ The CrypticGate smart contract has been successfully deployed and verified on th
 
 - **Network**: Midnight Preprod
 - **Contract Address**: `1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e`
-- **Midnight Explorer**: [https://preprod.midnight.network/contract/1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e](https://preprod.midnight.network/contract/1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e)
+- **Midnight Explorer**:[https://preprod.midnightexplorer.com/contracts/0x1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e](https://preprod.midnightexplorer.com/contracts/0x1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e)
 - **Deployment Pipeline**: GitHub Actions Preprod Fast Pipeline (with 10GB Swap & WASM Memory Optimizations)
 
 ---
