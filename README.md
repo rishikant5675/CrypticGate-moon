@@ -96,8 +96,19 @@ The CrypticGate smart contract has been successfully deployed and verified on th
 
 - **Network**: Midnight Preprod
 - **Contract Address**: `1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e`
-- **Midnight Explorer**:[https://preprod.midnightexplorer.com/contracts/0x1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e](https://preprod.midnightexplorer.com/contracts/0x1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e)
+- **Midnight Explorer**: [https://preprod.midnight.network/contract/1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e](https://preprod.midnight.network/contract/1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e)
 - **Deployment Pipeline**: GitHub Actions Preprod Fast Pipeline (with 10GB Swap & WASM Memory Optimizations)
+- **Verified Preprod Transactions (52/52)**: [`PREPROD_USERS.md`](./PREPROD_USERS.md)
+
+---
+
+## 📝 User Feedback & Community Testing
+
+We actively gather user testing feedback and verification ratings from community participants on the Midnight Preprod Network.
+
+- 📋 **Submit Feedback (Google Form)**: [Cryptic-gate_Moon Feedback Form](https://docs.google.com/forms/d/e/1FAIpQLSfZ-1ebh6gh70VYt6_B-2DgRjeNxMwVW-ZlrPhTSn7yDUCFXw/viewform)
+- 📊 **Live Feedback Responses (Google Sheet)**: [View Community Responses Sheet](https://docs.google.com/spreadsheets/d/17tncAEPoifSkyaThPoxc1u6GYfmSaTwwFF6BGbuLkSI/edit?usp=sharing)
+- 🔐 **52 On-Chain Transaction Logs**: [PREPROD_USERS.md](./PREPROD_USERS.md)
 
 ---
 
