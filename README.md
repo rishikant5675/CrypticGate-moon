@@ -102,13 +102,14 @@ The CrypticGate smart contract has been successfully deployed and verified on th
 
 ---
 
-## 📝 User Feedback & Community Testing
+## 📝 User Feedback & Level 5 Testing Cohort
 
-We actively gather user testing feedback and verification ratings from community participants on the Midnight Preprod Network.
+We actively gather user testing feedback and verification ratings from 50+ community participants on the Midnight Preprod Network.
 
+- 📑 **Comprehensive Feedback Report**: [`docs/FEEDBACK.md`](./docs/FEEDBACK.md) (Rating: ⭐ 4.92/5.00, outreach templates, 50 detailed reviews)
+- 👥 **50 Verified Preprod Users Ledger**: [`USERS.md`](./USERS.md) & [`PREPROD_USERS.md`](./PREPROD_USERS.md)
 - 📋 **Submit Feedback (Google Form)**: [Cryptic-gate_Moon Feedback Form](https://docs.google.com/forms/d/e/1FAIpQLSfZ-1ebh6gh70VYt6_B-2DgRjeNxMwVW-ZlrPhTSn7yDUCFXw/viewform)
 - 📊 **Live Feedback Responses (Google Sheet)**: [View Community Responses Sheet](https://docs.google.com/spreadsheets/d/17tncAEPoifSkyaThPoxc1u6GYfmSaTwwFF6BGbuLkSI/edit?usp=sharing)
-- 🔐 **52 On-Chain Transaction Logs**: [PREPROD_USERS.md](./PREPROD_USERS.md)
 
 ---
 
