@@ -10,7 +10,7 @@ This document aggregates and analyzes the feedback collected from **50 community
 - **Average User Rating**: ⭐ **4.92 / 5.00**
 - **Google Feedback Form**: [CrypticGate Feedback Form](https://docs.google.com/forms/d/e/1FAIpQLSfZ-1ebh6gh70VYt6_B-2DgRjeNxMwVW-ZlrPhTSn7yDUCFXw/viewform)
 - **Live Google Response Sheet**: [View Real-Time Form Responses (Google Sheets)](https://docs.google.com/spreadsheets/d/17tncAEPoifSkyaThPoxc1u6GYfmSaTwwFF6BGbuLkSI/edit?usp=sharing)
-- **Testnet Contract Address**: [`1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e`](https://preprod.midnight.network/contract/1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e)
+- **Testnet Contract Address**: [`0x1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e`](https://preprod.midnightexplorer.com/contracts/0x1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e)
 - **Primary Channels**: Midnight Discord, Developer Telegram, Web3 Student Communities, X (Twitter)
 
 ### Rating Breakdown

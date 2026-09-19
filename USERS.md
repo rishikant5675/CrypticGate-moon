@@ -8,11 +8,11 @@ This document lists the 50 real testnet users who tested and interacted with the
 
 | Parameter | Value |
 | :--- | :--- |
-| **Contract Address** | [`1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e`](https://preprod.midnight.network/contract/1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e) |
+| **Contract Address** | [`0x1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e`](https://preprod.midnightexplorer.com/contracts/0x1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e) |
 | **Network** | `Midnight Preprod (Testnet)` |
 | **Total Testnet Users** | `50` |
 | **Verification Gate** | `Private Allowlist Membership (Zero-Knowledge Disclosed Proof)` |
-| **Explorer Link** | [View On-Chain Activity](https://preprod.midnight.network/contract/1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e) |
+| **Explorer Link** | [View On-Chain Activity](https://preprod.midnightexplorer.com/contracts/0x1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e) |
 | **Feedback Google Form** | [CrypticGate Feedback Form](https://docs.google.com/forms/d/e/1FAIpQLSfZ-1ebh6gh70VYt6_B-2DgRjeNxMwVW-ZlrPhTSn7yDUCFXw/viewform) |
 | **Feedback Responses Sheet** | [View Real-Time Responses](https://docs.google.com/spreadsheets/d/17tncAEPoifSkyaThPoxc1u6GYfmSaTwwFF6BGbuLkSI/edit?usp=sharing) |
 
