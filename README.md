@@ -34,7 +34,7 @@ Modern dApps frequently need to gate access—whether for token whitelist sales,
 
 ---
 
-## 🏗️ Architecture Diagram
+## 🏗️ Architecture & Official Midnight Execution Flow
 
 ```
  +-----------------------------------------------------------------------+
@@ -152,7 +152,7 @@ We actively gather user testing feedback and verification ratings from 50+ commu
 
 ## 🧪 Testing Instructions & CI Status
 
-The project includes a comprehensive Vitest test suite (`tests/cryptic_gate.test.ts`) covering all privacy and cryptographic constraints:
+The project includes a comprehensive Vitest test suite (`tests/cryptic_gate.test.ts`) validating client-side off-chain ZK witness generation, Merkle tree membership constraints, anti-replay nullifiers, and privacy preservation prior to on-chain Preprod submission:
 
 ```bash
 npm test

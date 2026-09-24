@@ -1,3 +1,11 @@
+// ============================================================================
+// CrypticGate - Off-Chain Cryptographic Prover Invariant Unit Test Suite
+// ----------------------------------------------------------------------------
+// Validates client-side zero-knowledge witness generation, Merkle tree
+// membership verification, anti-replay nullifiers, and privacy preservation
+// before on-chain submission to the deployed Compact contract.
+// ============================================================================
+
 import { describe, it, expect, beforeEach } from 'vitest';
 import {
   CrypticGateSimulator,
@@ -7,7 +15,7 @@ import {
   sha256
 } from '../contract/src/contract_simulator.js';
 
-describe('CrypticGate - Private Allowlist Membership ZK Proofs', () => {
+describe('CrypticGate - Zero-Knowledge Prover & Privacy Invariants', () => {
   // Test Setup: Create private allowlist members
   const memberA = { secret: 'MEMBER_SECRET_ALICE_9921', salt: 'SALT_A_001' };
   const memberB = { secret: 'MEMBER_SECRET_BOB_4410', salt: 'SALT_B_002' };

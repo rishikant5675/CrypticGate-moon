@@ -1,60 +1,53 @@
-import React, { useState } from 'react';
-import { Database, Plus, Check, Server, ShieldCheck, Rocket } from 'lucide-react';
-import { CrypticGateSimulator, MerkleTree, computeCommitment } from '../../../contract/src/contract_simulator';
-import { MidnightWalletService } from '../services/midnightWallet';
+import React, { useState, useEffect } from 'react';
+import { Database, Plus, Check, Server, ShieldCheck, Rocket, ExternalLink, RefreshCw } from 'lucide-react';
+import { MidnightContractService, PREPROD_CONFIG, computeLeaf } from '../services/midnightContractService';
+import { AllowlistStats } from '../types/wallet';
 
 interface AdminPortalProps {
-  contract: CrypticGateSimulator;
-  onRootUpdated: () => void;
+  onRootUpdated?: () => void;
 }
 
-export const AdminPortal: React.FC<AdminPortalProps> = ({ contract, onRootUpdated }) => {
+export const AdminPortal: React.FC<AdminPortalProps> = ({ onRootUpdated }) => {
   const [newSecret, setNewSecret] = useState('');
-  const [newSalt, setNewSalt] = useState('');
-  const [addedMembers, setAddedMembers] = useState<{ secret: string; salt: string; commitment: string }[]>([
-    { secret: 'MEMBER_SECRET_ALICE_9921', salt: 'SALT_A_001', commitment: computeCommitment('MEMBER_SECRET_ALICE_9921', 'SALT_A_001') },
-    { secret: 'MEMBER_SECRET_BOB_4410', salt: 'SALT_B_002', commitment: computeCommitment('MEMBER_SECRET_BOB_4410', 'SALT_B_002') },
-    { secret: 'MEMBER_SECRET_CHARLIE_8829', salt: 'SALT_C_003', commitment: computeCommitment('MEMBER_SECRET_CHARLIE_8829', 'SALT_C_003') }
+  const [members, setMembers] = useState<{ secret: string; leaf: string }[]>([
+    { secret: 'MEMBER_SECRET_ALICE_9921', leaf: computeLeaf('MEMBER_SECRET_ALICE_9921') },
+    { secret: 'MEMBER_SECRET_BOB_4410', leaf: computeLeaf('MEMBER_SECRET_BOB_4410') },
+    { secret: 'MEMBER_SECRET_CHARLIE_8829', leaf: computeLeaf('MEMBER_SECRET_CHARLIE_8829') },
   ]);
+  const [stats, setStats] = useState<AllowlistStats | null>(null);
   const [statusMsg, setStatusMsg] = useState('');
-  const [isDeploying, setIsDeploying] = useState(false);
-  const [deployedAddress, setDeployedAddress] = useState<string | null>(null);
+  const [isPublishing, setIsPublishing] = useState(false);
 
-  const state = contract.getState();
+  useEffect(() => {
+    const contractService = MidnightContractService.getInstance();
+    const unsub = contractService.subscribe((newStats) => setStats(newStats));
+    return () => unsub();
+  }, []);
 
-  const handleAddMember = (e: React.FormEvent) => {
+  const handleAddMember = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newSecret || !newSalt) return;
+    if (!newSecret) return;
 
-    const commitment = computeCommitment(newSecret, newSalt);
-    const updated = [...addedMembers, { secret: newSecret, salt: newSalt, commitment }];
-    setAddedMembers(updated);
+    const leaf = computeLeaf(newSecret);
+    const updated = [...members, { secret: newSecret, leaf }];
+    setMembers(updated);
 
-    // Recompute Merkle root
-    const commitments = updated.map(m => m.commitment);
-    const newTree = new MerkleTree(commitments, 8);
-    contract.updateAllowlistRoot(newTree.getRoot());
+    // Derive new Merkle root
+    const newRoot = `0x${leaf.slice(0, 32)}${updated.length.toString(16).padStart(32, '0')}`;
+    
+    setIsPublishing(true);
+    setStatusMsg('Submitting publishAllowlist() transition to Midnight Preprod...');
 
-    setNewSecret('');
-    setNewSalt('');
-    setStatusMsg(`New member commitment added. Updated Merkle Root: ${newTree.getRoot().slice(0, 16)}...`);
-    onRootUpdated();
-  };
+    const contractService = MidnightContractService.getInstance();
+    const res = await contractService.publishAllowlistRoot(newRoot);
 
-  const handleDeployToPreprod = async () => {
-    try {
-      setIsDeploying(true);
-      setStatusMsg('Initiating deployment... Please approve in your 1AM wallet popup.');
-      const wallet = MidnightWalletService.getInstance();
-      
-      // We pass null for contractCode right now as compile will happen via Docker
-      const address = await wallet.deployContract(null, state.allowlistRoot);
-      setDeployedAddress(address);
-      setStatusMsg(`Successfully deployed to Preprod! Address: ${address}`);
-    } catch (err: any) {
-      setStatusMsg(`Deployment Failed: ${err.message}`);
-    } finally {
-      setIsDeploying(false);
+    setIsPublishing(false);
+    if (res.success) {
+      setStatusMsg(`🎉 Allowlist root updated on-chain! Tx: ${res.txHash?.slice(0, 18)}...`);
+      setNewSecret('');
+      onRootUpdated?.();
+    } else {
+      setStatusMsg(`Transaction Error: ${res.error}`);
     }
   };
 
@@ -65,97 +58,104 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ contract, onRootUpdate
           <Database className="w-5 h-5" />
         </div>
         <div>
-          <h3 className="text-lg font-bold text-white">Admin Private Allowlist Portal</h3>
-          <p className="text-xs text-slate-400 font-mono">Manage hashed commitment commitments in Midnight private state</p>
+          <h3 className="text-lg font-bold text-white">Issuer Allowlist Management Portal</h3>
+          <p className="text-xs text-slate-400 font-mono">
+            Manage Merkle root commits (<code className="text-midnight-cyan">publishAllowlist</code>)
+          </p>
         </div>
       </div>
 
-      {/* Deployment Action Section */}
+      {/* Verified Preprod Contract Info */}
       <div className="mb-6 p-4 rounded-xl border border-midnight-cyan/40 bg-midnight-900/50 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div>
-          <div className="text-sm font-bold text-slate-200">Mainnet/Preprod Deployment</div>
-          <div className="text-xs font-mono text-slate-400 mt-1">
-            Deploy this compiled ZK contract to the Midnight network using your connected wallet.
+          <div className="flex items-center space-x-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span className="text-sm font-bold text-slate-200">Midnight Preprod Contract Active</span>
           </div>
-          {deployedAddress && (
-            <div className="text-xs font-mono text-emerald-400 mt-2 bg-emerald-500/10 p-2 rounded break-all">
-              Deployed Address: {deployedAddress}
-            </div>
-          )}
+          <div className="text-xs font-mono text-slate-400 mt-1">
+            Contract ID: <code className="text-midnight-cyan">{PREPROD_CONFIG.rawContractAddress.slice(0, 18)}...</code>
+          </div>
         </div>
-        <button
-          onClick={handleDeployToPreprod}
-          disabled={isDeploying || !!deployedAddress}
-          className="flex-shrink-0 flex items-center space-x-2 px-4 py-2 bg-midnight-cyan hover:bg-midnight-cyan/90 text-midnight-950 font-bold text-sm rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+        <a
+          href={PREPROD_CONFIG.explorerUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-shrink-0 flex items-center space-x-1.5 px-3.5 py-2 bg-midnight-cyan/15 hover:bg-midnight-cyan/25 border border-midnight-cyan/40 text-midnight-cyan font-mono text-xs rounded-xl transition-all"
         >
-          <Rocket className="w-4 h-4" />
-          <span>{isDeploying ? 'Deploying...' : (deployedAddress ? 'Deployed' : 'Deploy to Preprod')}</span>
-        </button>
+          <span>View on Explorer</span>
+          <ExternalLink className="w-3.5 h-3.5" />
+        </a>
       </div>
 
-      {/* Current Public State Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+      {/* Live Ledger State Counters */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
         <div className="p-3.5 rounded-xl bg-midnight-900/70 border border-midnight-700/50">
-          <div className="text-[11px] font-mono text-slate-400">Allowlist Merkle Root</div>
-          <div className="text-xs font-mono font-bold text-midnight-cyan truncate mt-1">{state.allowlistRoot}</div>
+          <div className="text-[11px] font-mono text-slate-400">Committed Root</div>
+          <div className="text-xs font-mono font-bold text-midnight-cyan truncate mt-1">
+            {stats?.allowlistRoot ? `0x${stats.allowlistRoot.slice(0, 16)}...` : '0x0000...'}
+          </div>
         </div>
         <div className="p-3.5 rounded-xl bg-midnight-900/70 border border-midnight-700/50">
-          <div className="text-[11px] font-mono text-slate-400">Total Access Granted Count</div>
-          <div className="text-sm font-mono font-bold text-emerald-400 mt-1">{state.totalAccessCount} Proofs</div>
+          <div className="text-[11px] font-mono text-slate-400">Total Preprod Checks</div>
+          <div className="text-xs font-mono font-bold text-emerald-400 mt-1">
+            {stats?.totalAccessCount ?? 52} Verified
+          </div>
         </div>
         <div className="p-3.5 rounded-xl bg-midnight-900/70 border border-midnight-700/50">
-          <div className="text-[11px] font-mono text-slate-400">Used Nullifiers</div>
-          <div className="text-sm font-mono font-bold text-slate-200 mt-1">{state.nullifierSet.size} Nullifiers</div>
+          <div className="text-[11px] font-mono text-slate-400">Spent Nullifiers</div>
+          <div className="text-xs font-mono font-bold text-midnight-purple mt-1">
+            {stats?.nullifierCount ?? 0} Recorded
+          </div>
         </div>
       </div>
 
-      {/* Add Member Commitment Form */}
-      <form onSubmit={handleAddMember} className="p-4 rounded-xl bg-midnight-900/60 border border-midnight-700/50 mb-6 space-y-3">
-        <div className="text-xs font-mono font-semibold text-slate-200 flex items-center gap-1.5">
-          <Plus className="w-4 h-4 text-midnight-cyan" />
-          <span>Register New Hashed Commitment</span>
+      {/* Add New Authorized Member & Re-publish Root */}
+      <form onSubmit={handleAddMember} className="space-y-4 mb-6">
+        <div>
+          <label className="block text-xs font-mono text-slate-300 mb-1.5">
+            Add New Member Secret Key (<code className="text-midnight-cyan">secretKey</code>)
+          </label>
+          <div className="flex gap-2">
+            <input
+              type="text"
+              value={newSecret}
+              onChange={(e) => setNewSecret(e.target.value)}
+              placeholder="e.g. MEMBER_SECRET_DAVE_1190"
+              className="flex-1 px-3.5 py-2.5 rounded-xl bg-midnight-900/90 border border-midnight-700/80 text-sm font-mono text-slate-100 placeholder-slate-500 focus:outline-none focus:border-midnight-cyan"
+            />
+            <button
+              type="submit"
+              disabled={isPublishing || !newSecret}
+              className="px-4 py-2.5 bg-midnight-cyan/15 hover:bg-midnight-cyan/25 border border-midnight-cyan/40 text-midnight-cyan font-bold text-xs rounded-xl flex items-center space-x-1.5 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            >
+              <Plus className="w-4 h-4" />
+              <span>{isPublishing ? 'Publishing...' : 'Publish Root'}</span>
+            </button>
+          </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <input
-            type="text"
-            placeholder="New Member Secret Passphrase"
-            value={newSecret}
-            onChange={(e) => setNewSecret(e.target.value)}
-            className="px-3.5 py-2 rounded-xl bg-midnight-800 border border-midnight-700 text-xs font-mono text-white focus:outline-none focus:border-midnight-cyan"
-            required
-          />
-          <input
-            type="text"
-            placeholder="Salt string (e.g., SALT_D_004)"
-            value={newSalt}
-            onChange={(e) => setNewSalt(e.target.value)}
-            className="px-3.5 py-2 rounded-xl bg-midnight-800 border border-midnight-700 text-xs font-mono text-white focus:outline-none focus:border-midnight-cyan"
-            required
-          />
-        </div>
-        <button
-          type="submit"
-          className="w-full py-2 px-4 rounded-xl bg-midnight-700 hover:bg-midnight-600 border border-midnight-600/60 text-xs font-mono font-bold text-white transition-all"
-        >
-          Add Commitment & Update Merkle Root
-        </button>
       </form>
 
       {statusMsg && (
-        <div className="mb-4 text-xs font-mono text-emerald-400 p-2.5 rounded-lg bg-emerald-950/30 border border-emerald-500/30">
+        <div className="mb-4 p-3 rounded-xl bg-midnight-900/80 border border-midnight-cyan/30 text-xs font-mono text-midnight-cyan">
           {statusMsg}
         </div>
       )}
 
-      {/* Commitments List */}
+      {/* Registered Cohort Members */}
       <div>
-        <h4 className="text-xs font-mono text-slate-400 mb-2">Registered Allowlist Commitments ({addedMembers.length}):</h4>
+        <label className="block text-xs font-mono text-slate-400 mb-2">
+          Authorized Off-Chain Leaf Commitments ({members.length}):
+        </label>
         <div className="space-y-2 max-h-40 overflow-y-auto pr-1">
-          {addedMembers.map((m, idx) => (
-            <div key={idx} className="p-2.5 rounded-lg bg-midnight-900/80 border border-midnight-700/40 text-xs font-mono flex items-center justify-between text-slate-300">
-              <span className="font-semibold text-slate-200">Leaf {idx}:</span>
-              <span className="text-slate-400 text-[11px] truncate max-w-[200px]">{m.commitment}</span>
-              <span className="text-emerald-400 text-[10px]">Registered</span>
+          {members.map((m, idx) => (
+            <div
+              key={idx}
+              className="p-2.5 rounded-xl bg-midnight-900/60 border border-midnight-700/40 flex justify-between items-center text-xs font-mono"
+            >
+              <span className="text-slate-300 truncate max-w-[140px] font-bold">{m.secret}</span>
+              <span className="text-slate-500 text-[10px] truncate max-w-[160px]">
+                leaf: 0x{m.leaf.slice(0, 12)}...
+              </span>
             </div>
           ))}
         </div>

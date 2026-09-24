@@ -3,7 +3,8 @@ export interface WalletAccount {
   network: string;
   balance: string;
   isConnected: boolean;
-  walletType?: '1AM Wallet' | 'Lace Wallet' | 'Midnight Sandbox';
+  walletType?: '1AM Wallet' | 'Lace Wallet' | 'Midnight DApp Connector';
+  dustBalance?: string;
 }
 
 export interface MidnightWalletState {
@@ -19,4 +20,23 @@ export interface AllowlistStats {
   totalAccessCount: number;
   latestAccessGranted: boolean;
   nullifierCount: number;
+  contractAddress: string;
+  network: string;
+}
+
+export interface ZkProofWitness {
+  secretKey: string;
+  leaf: string;
+  nullifier: string;
+  merklePath: string[];
+  pathDirections: boolean[];
+}
+
+export interface ContractExecutionResult {
+  success: boolean;
+  txHash?: string;
+  nullifier?: string;
+  blockHeight?: number;
+  error?: string;
+  timestamp: string;
 }
