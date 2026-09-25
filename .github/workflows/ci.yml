@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-and-test:
-    name: Compile Contracts & Run ZK Unit Tests
+    name: Compile Compact Contracts & Run ZK Test Suite
     runs-on: ubuntu-latest
 
     steps:
@@ -19,6 +19,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
 
       - name: Install Workspace & Subfolder Dependencies
         run: |
@@ -27,8 +28,12 @@ jobs:
           npm --prefix frontend install
           npm --prefix indexer install
 
-      - name: Execute Vitest ZK Membership Unit Test Suite
+      - name: Compile Compact ZK Smart Contracts
+        run: |
+          npm run compile:contract
+
+      - name: Execute Vitest ZK Prover & Preprod E2E Test Suite (14 Tests)
         run: npm test
 
-      - name: Build All Workspaces (Contract, Frontend, Indexer)
+      - name: Build All Production Workspaces (Contract, Frontend, Indexer)
         run: npm run build

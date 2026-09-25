@@ -152,17 +152,15 @@ We actively gather user testing feedback and verification ratings from 50+ commu
 
 ## 🧪 Testing Instructions & CI Status
 
-The project includes a comprehensive Vitest test suite (`tests/cryptic_gate.test.ts`) validating client-side off-chain ZK witness generation, Merkle tree membership constraints, anti-replay nullifiers, and privacy preservation prior to on-chain Preprod submission:
+The project includes an exhaustive Vitest test suite (`tests/cryptic_gate.test.ts` and `tests/midnight_preprod_e2e.test.ts`) covering client-side off-chain ZK witness generation, Merkle tree membership constraints, anti-replay nullifiers, genuine Midnight DApp connector integration, and Preprod network invariants:
 
 ```bash
 npm test
 ```
 
-### Verified Test Output Screenshot / Log:
+### Verified Test Output Log (14/14 Tests Passing):
 ```
- RUN  v4.1.10 C:/Users/hp/Desktop/Moon/rishigshshsh/CrypticGate
-
- ✓ tests/cryptic_gate.test.ts (6 tests) 15ms
+ ✓ tests/cryptic_gate.test.ts (6 tests) 176ms
    ✓ (a) should grant access when a valid member provides a correct ZK membership proof
    ✓ (b) should reject access when a non-member attempts to generate a proof with invalid credentials
    ✓ (c) should strictly ensure secret, identity address, and commitment never appear in public ledger state
@@ -170,10 +168,23 @@ npm test
    ✓ should allow admin to update Merkle root when new members are onboarded
    ✓ should correctly compute Merkle proof verification for deep trees
 
- Test Files  1 passed (1)
-      Tests  6 passed (6)
-   Duration  1.24s
+ ✓ tests/midnight_preprod_e2e.test.ts (8 tests) 194ms
+   ✓ should successfully configure Midnight NetworkId for Preprod and Preview
+   ✓ should store, retrieve, and isolate private witness credentials in private state provider
+   ✓ should connect to Midnight DApp connector and return valid wallet connection state
+   ✓ should compute deterministic, un-linkable nullifiers and leaves matching Compact specification
+   ✓ should successfully execute checkAccess() circuit and emit confirmed transaction on Preprod
+   ✓ should strictly reject double-spending or replay attacks when the same nullifier is reused
+   ✓ should reject unauthorized attacker personas attempting invalid membership proofs
+   ✓ should allow issuer to publish and rotate allowlist Merkle root on-chain
+
+ Test Files  2 passed (2)
+      Tests  14 passed (14)
+   Duration  1.80s
 ```
+
+### 📑 Product Proposal & Specifications
+Read the full institutional architecture specification and privacy threat model in [`PROPOSAL.md`](./PROPOSAL.md).
 
 ---
 
