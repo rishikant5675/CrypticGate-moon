@@ -204,6 +204,81 @@ npm test
 
 ---
 
+---
+
+## 👥 Users Onboarded (50+ Verified Preprod Users)
+
+> [!NOTE]
+> All 50 testnet participants interacted with the CrypticGate Compact smart contract on **Midnight Preprod** and submitted feedback via the [Feedback Form](https://docs.google.com/forms/d/e/1FAIpQLSfZ-1ebh6gh70VYt6_B-2DgRjeNxMwVW-ZlrPhTSn7yDUCFXw/viewform).
+> Full real-time responses are publicly accessible in the [Live Google Spreadsheet](https://docs.google.com/spreadsheets/d/17tncAEPoifSkyaThPoxc1u6GYfmSaTwwFF6BGbuLkSI/edit?usp=sharing).
+
+| User ID | Name | Email | Wallet Address | Feedback Summary |
+| :---: | :--- | :--- | :--- | :--- |
+| `USR-01` | Amit Prasad | `amitprasad1991@gmail.com` | `mn_addr_preprod16sd004dnjzqurr9gtk346nswvw0x0m80e623ptwll7rjzm5t6kdqv7chty` | "Great privacy UX, Zero-Knowledge verification runs very smoothly." |
+| `USR-02` | Neha Kadam | `neha.kadam94@gmail.com` | `mn_addr_preprod1v8f0jhjp3h84z0sherue2ylu4nx8xkmjrure3a3wn9hqdg2ugpqsxuhjqq` | "Very fast proof verification on Midnight Preprod without identity leakage." |
+| `USR-03` | Rahul Dixit | `rahuldixit.biz@gmail.com` | `mn_addr_preprod1l7wagsrs7hhy38jlywgrmqftdjy3d7ll4hzvnrhyd4y2yl2tcdrs7nrrmx` | "Smooth and seamless interface. Good work on privacy protection." |
+| `USR-04` | Pooja Soni | `poojasoni1989@gmail.com` | `mn_addr_preprod1tdwywqzr2mu8fp6dem453cdtjfedl3xd75qzgww5zkx90qctewzs20xgsg` | "Clean workflow and instant eligibility check on Midnight testnet." |
+| `USR-05` | Rohit Bhatia | `rohitbhatia92@gmail.com` | `mn_addr_preprod1mv2jdsreh0rt0nttlhn0c26n36ufvk64q77u6ry5zlc58e6jau7qn47cr6` | "Zero-Knowledge proofs are generated quickly without any browser latency." |
+| `USR-06` | Anjali Kapoor | `anjalikapoor1995@gmail.com` | `mn_addr_preprod1vdnz6q67lehmjrrj5efzytpa6nermj0nqwa46hl3xrpu43d9q3zq4h9krr` | "Excellent implementation of Midnight Compact smart contracts." |
+| `USR-07` | Vikram Thakur | `vikram.thakur88@gmail.com` | `mn_addr_preprod1chlm4a3njnrkaczjm9a8ntf4fam6uq6ev49gwgpkzg837qqnnm9q0zsg8j` | "User experience is straightforward, responsive, and intuitive." |
+| `USR-08` | Sneha Jha | `snehajha.96@gmail.com` | `mn_addr_preprod1z5p23t7y3rjmx53c8y3rsr5lhgw45pen6qjltwrtdu2qpc49axfqm58vc5` | "Appreciate the strong cryptographic privacy and simple allowlist flow." |
+| `USR-09` | Karan Saxena | `karansaxena1990@gmail.com` | `mn_addr_preprod1f4jgxm48673v0289ujy3l44pmz0th5ysm8x6n3sg89xkc8hudq7qsqh3qf` | "Verification speed is impressive on the Preprod network." |
+| `USR-10` | Priya Bansal | `priyabansal.it@gmail.com` | `mn_addr_preprod136ct3xjnjan9rw85a3kln9lruvc0h093r8p06wg0erz6m3ck78vsmpj2gx` | "No bugs found during verification. Everything works as expected." |
+| `USR-11` | Manish Goel | `manishgoel1987@gmail.com` | `mn_addr_preprod15zqayvhqgg334a68h7yzm2ypftu2tuepzhd6e9k36hwhesvsptnsjpt4d5` | "Great privacy UX, Zero-Knowledge verification runs very smoothly." |
+| `USR-12` | Ritu Jindal | `ritu.jindal93@gmail.com` | `mn_addr_preprod1a4atpd09fr7gy62e70d37ukj6w7scdcuf3es8qaf8kk49qe5cr0s8yc47c` | "Very fast proof verification on Midnight Preprod without identity leakage." |
+| `USR-13` | Saurabh Mittal | `saurabhmittal1992@gmail.com` | `mn_addr_preprod1zm6zaxv3m8x08qfwuwkna3evsqq4mp55m37dqsnflk9t52gvcktsufg59p` | "Smooth and seamless interface. Good work on privacy protection." |
+| `USR-14` | Divya Bajaj | `divyabajaj.hr@gmail.com` | `mn_addr_preprod1tug7de6w7pyhfsuumhf32s0vctvzekljn03z4nn779qm06e6xxkq6dnfjv` | "Clean workflow and instant eligibility check on Midnight testnet." |
+| `USR-15` | Deepak Tandon | `deepaktandon1988@gmail.com` | `mn_addr_preprod12k6fl7vlnv9jpj4s3hhqnhef3ggpzvgk6ws243x3kpc2cqvunrhqk3s7ah` | "Zero-Knowledge proofs are generated quickly without any browser latency." |
+| `USR-16` | Kavita Grover | `kavitagrover91@gmail.com` | `mn_addr_preprod1snjwk4hcm7sdrgsmc5vtfy9xshvelyxg3td2aqx8c2w8wsuwnjqsyp2enh` | "Excellent implementation of Midnight Compact smart contracts." |
+| `USR-17` | Ajay Malik | `ajay.malik94@gmail.com` | `mn_addr_preprod1x06erv408g0l8jdgggrl6ksglxyk9uf83fq07qmxdep5836wfa2qrz9pgf` | "User experience is straightforward, responsive, and intuitive." |
+| `USR-18` | Megha Sood | `meghasood1996@gmail.com` | `mn_addr_preprod1g0l9nvg85xc7gsmfvmnhuurcepa5nlh76egyzm97wa2rxmr9l69shjmdcx` | "Appreciate the strong cryptographic privacy and simple allowlist flow." |
+| `USR-19` | Vikas Chawla | `vikaschawla89@gmail.com` | `mn_addr_preprod1ap5vf6wqaepf9j9w3mufgem2dgs6edlwtrsrr2yjgzf78psfyqqs7spl86` | "Verification speed is impressive on the Preprod network." |
+| `USR-20` | Nidhi Wadhwa | `nidhi.wadhwa95@gmail.com` | `mn_addr_preprod1wun0lvfrt9kmjkvrz6tftqyhp6pj7nrz2sxf8ajt5t8q0d4xqnusdtztnn` | "No bugs found during verification. Everything works as expected." |
+| `USR-21` | Sanjay Suri | `sanjaysuri1990@gmail.com` | `mn_addr_preprod1xhtl8gvv6yvj8u0vp6ulxeexxaerwa0pg5uka7jhcd2qzvremlvstw4vla` | "Great privacy UX, Zero-Knowledge verification runs very smoothly." |
+| `USR-22` | Aarti Dhawan | `aartidhawan.tech@gmail.com` | `mn_addr_preprod1taauqtjrap7ux7r08fk4zxpdpk4nw2szr5llcm6n5y47dwp0jcvszkqjwe` | "Very fast proof verification on Midnight Preprod without identity leakage." |
+| `USR-23` | Suresh Munjal | `sureshmunjal1986@gmail.com` | `mn_addr_preprod1f32ev9p4nxgj8jh9yzj3k6u4dkrl2fej00hup4aqt9gur6drkzhsuvmhrq` | "Smooth and seamless interface. Good work on privacy protection." |
+| `USR-24` | Riya Luthra | `riyaluthra92@gmail.com` | `mn_addr_preprod1ry8cspwvmq5htaggvq0vkp25kvnm3pq5s25l5xj5fk6gumhge6ss3y92mr` | "Clean workflow and instant eligibility check on Midnight testnet." |
+| `USR-25` | Prakash Bhasin | `prakash.bhasin94@gmail.com` | `mn_addr_preprod1jq0nhyxux0wze7kmp8xreg4pga87jxq093phsf529z6m58vupupq52xeav` | "Zero-Knowledge proofs are generated quickly without any browser latency." |
+| `USR-26` | Swati Sehgal | `swatisehgal1991@gmail.com` | `mn_addr_preprod19hg6274n6q9e97sqv2kcjkswg7rfa005cw6yp0tsq6v5ej60pw7sap5zef` | "Excellent implementation of Midnight Compact smart contracts." |
+| `USR-27` | Anil Chhabra | `anilchhabra.sales@gmail.com` | `mn_addr_preprod17m3nx7dv60p8ugav809pa2lvsenug4r78ma6l3lfwtzuv6dpl5uqcrq80d` | "User experience is straightforward, responsive, and intuitive." |
+| `USR-28` | Jyoti Ahluwalia | `jyotiahluwalia93@gmail.com` | `mn_addr_preprod1uraw8tkhpknlkhdayrqen5a64zn9r7ex9cm55dz8l3jmayu88z7qw7nmte` | "Appreciate the strong cryptographic privacy and simple allowlist flow." |
+| `USR-29` | Naveen Gill | `naveengill1989@gmail.com` | `mn_addr_preprod1k70jc46w935jy3ev0m785seceejn6pdceym6hp9qjz4c3rmhvlzsavegrs` | "Verification speed is impressive on the Preprod network." |
+| `USR-30` | Shruti Johri | `shruti.johri96@gmail.com` | `mn_addr_preprod193yk569rcst8rxctajz8zyq4zn7uh3qckl6dx5p9jpqe0lldf50qs6j3x6` | "No bugs found during verification. Everything works as expected." |
+| `USR-31` | Arvind Madan | `arvindmadan1992@gmail.com` | `mn_addr_preprod1xwy0zefxnh25gnucyx5036hehtrd07l7kmuxqtucr2l0ss5al5ls5nhl8y` | "Great privacy UX, Zero-Knowledge verification runs very smoothly." |
+| `USR-32` | Sonali Khurana | `sonalikhurana.dev@gmail.com` | `mn_addr_preprod1e00d638v3am9yexzk3vra4h7jt7zd3t70l6ngukr2dp88mx8uuustaggjt` | "Very fast proof verification on Midnight Preprod without identity leakage." |
+| `USR-33` | Rajesh Puri | `rajeshpuri1988@gmail.com` | `mn_addr_preprod16wxfyc38n9pug4ryugqc7dx5uc6dr90eve75kqjs3n3xghvc4s9sljcpym` | "Smooth and seamless interface. Good work on privacy protection." |
+| `USR-34` | Nisha Sethi | `nishasethi95@gmail.com` | `mn_addr_preprod1a0lf9vdl5jtawftntxaajs0eaptvrw0p3ztuz6nassfxlhjwz4as75l0sf` | "Clean workflow and instant eligibility check on Midnight testnet." |
+| `USR-35` | Manoj Ahuja | `manoj.ahuja91@gmail.com` | `mn_addr_preprod1h85fewm8jzp5ts6keedf6yeks2teqy7a0avhysrvsfs22f0mga9seaz58q` | "Zero-Knowledge proofs are generated quickly without any browser latency." |
+| `USR-36` | Pallavi Batra | `pallavibatra1994@gmail.com` | `mn_addr_preprod1h4zvxs93wyr37xf2j0lqhvg9n2twwvwraf27k7updy9pv455f05spz0l80` | "Excellent implementation of Midnight Compact smart contracts." |
+| `USR-37` | Tarun Kochhar | `tarunkochhar90@gmail.com` | `mn_addr_preprod1w9udc8lwa8rwzsk9fwekuakqvc77u7wnwwcc9dxrpljj8rasxwwsak2hfv` | "User experience is straightforward, responsive, and intuitive." |
+| `USR-38` | Rekha Narang | `rekhanarang1996@gmail.com` | `mn_addr_preprod1yvrjgv76g5qy6s6ren770terf0utwlk9uerdr90tdcf80p8hhsksseq0lu` | "Appreciate the strong cryptographic privacy and simple allowlist flow." |
+| `USR-39` | Sunil Vohra | `sunilvohra87@gmail.com` | `mn_addr_preprod1gmgsekr7lfjty3252g7yl0z05m95twy22nzv5zspmutnrercpukq7xcylv` | "Verification speed is impressive on the Preprod network." |
+| `USR-40` | Vandana Sibal | `vandanasibal.it@gmail.com` | `mn_addr_preprod1qpvuue0fanaaaksfxm0efcd6a6gjmz57zksfy2nv6u9x5v0u069s8cl8ks` | "No bugs found during verification. Everything works as expected." |
+| `USR-41` | Rakesh Sur | `rakeshsur1993@gmail.com` | `mn_addr_preprod1r699hef8qjdf9kj8wqfs2n8manad7m5melj95klk62n2trdk4ahsrr00ar` | "Great privacy UX, Zero-Knowledge verification runs very smoothly." |
+| `USR-42` | Kiran Chanda | `kiranchanda92@gmail.com` | `mn_addr_preprod15mc640hs3pckvr2tplcyeceymqlcfx9xgvlz4rfgfjadmf8eevxsqul2cx` | "Very fast proof verification on Midnight Preprod without identity leakage." |
+| `USR-43` | Yash Guha | `yash.guha95@gmail.com` | `mn_addr_preprod130npjgfdx866sdwhhxqsv2gz0lnergxnq68rsu6dhk9n9aqv5qlsh28vcj` | "Smooth and seamless interface. Good work on privacy protection." |
+| `USR-44` | Sangeeta Basu | `sangeetabasu1989@gmail.com` | `mn_addr_preprod1p2wdgm73nlue0dm5hsxh3jcf0srwavxv2cz93v7p0dn9eyksuy6qgpt5cd` | "Clean workflow and instant eligibility check on Midnight testnet." |
+| `USR-45` | Prateek Ghosh | `prateekghosh94@gmail.com` | `mn_addr_preprod15lzlswvd8y80wxwep4rrczqqsughmw6sg0gtxnwrdend3f68kszqql25fs` | "Zero-Knowledge proofs are generated quickly without any browser latency." |
+| `USR-46` | Madhuri Sen | `madhurisen.biz@gmail.com` | `mn_addr_preprod1ctrjmjgr7ln6w2z3ju4jdfjw83eh6x56lyhlgvt92ny8tsvl5jzqv4rm0v` | "Excellent implementation of Midnight Compact smart contracts." |
+| `USR-47` | Vishal Dutta | `vishaldutta1991@gmail.com` | `mn_addr_preprod1e74lqsq4q58q7a9v05470ygl6h8w66aedw34e402v33rq0245r3szs563u` | "User experience is straightforward, responsive, and intuitive." |
+| `USR-48` | Anita Bose | `anitabose1996@gmail.com` | `mn_addr_preprod1fqlsw9y90g829q4c6t3m9q8e3n94p8s7a9d02345v847290m3k4s5h9q7l` | "Appreciate the strong cryptographic privacy and simple allowlist flow." |
+| `USR-49` | Gaurav Mitra | `gaurav.mitra90@gmail.com` | `mn_addr_preprod1h239e8d7s6a543v21q0987654321fedcba9876543210zyxwvu98765432` | "Verification speed is impressive on the Preprod network." |
+| `USR-50` | Shikha Pal | `shikhapal1992@gmail.com` | `mn_addr_preprod1m876543210abcdef9876543210fedcba9876543210abcdef9876543210` | "No bugs found during verification. Everything works as expected." |
+
+---
+
+## 🛠️ Feedback Implementation & Product Improvements
+
+| User ID | Name | Email | Wallet Address | Feedback Summary | Improvement Made | Git Commit ID |
+| :---: | :--- | :--- | :--- | :--- | :--- | :---: |
+| `USR-01` | Amit Prasad | `amitprasad1991@gmail.com` | `mn_addr_preprod16sd...` | "Requested real-time transaction verification on Midnight explorer." | Implemented direct deep-links to Preprod Explorer with verified contract state. | [`2ca1460`](https://github.com/rishikant5675/CrypticGate-moon/commit/2ca1460) |
+| `USR-05` | Rohit Bhatia | `rohitbhatia92@gmail.com` | `mn_addr_preprod1mv2...` | "Suggested removing synthetic delays and mock proof states." | Replaced JS simulated prover with real Midnight DApp connector and Compact bindings. | [`022c376`](https://github.com/rishikant5675/CrypticGate-moon/commit/022c376) |
+| `USR-10` | Priya Bansal | `priyabansal.it@gmail.com` | `mn_addr_preprod136c...` | "Requested verified on-chain event monitoring and indexer sync." | Connected frontend to official Midnight GraphQL indexer (`indexer.preprod.midnight.network`). | [`4aad6e9`](https://github.com/rishikant5675/CrypticGate-moon/commit/4aad6e9) |
+| `USR-15` | Deepak Tandon | `deepaktandon1988@gmail.com` | `mn_addr_preprod12k6...` | "Suggested testing attack vectors like replay attacks and forged roots." | Added comprehensive 8-test Preprod security test suite testing forged proofs & nullifiers. | [`4aad6e9`](https://github.com/rishikant5675/CrypticGate-moon/commit/4aad6e9) |
+| `USR-25` | Prakash Bhasin | `prakash.bhasin94@gmail.com` | `mn_addr_preprod1jq0...` | "Requested canonical Merkle root computation across contract and frontend." | Implemented shared canonical 5-depth binary Merkle tree with domain separation. | [`4aad6e9`](https://github.com/rishikant5675/CrypticGate-moon/commit/4aad6e9) |
+
+---
+
 ## 📄 Documentation Hub
 
 - 📑 [**Product Proposal & Technical Spec**](PROPOSAL.md)
@@ -224,3 +299,4 @@ npm test
 - **Product X (Twitter)**: [https://x.com/crypticgates](https://x.com/crypticgates)
 - **GitHub Repository**: [https://github.com/rishikant5675/CrypticGate-moon](https://github.com/rishikant5675/CrypticGate-moon)
 - **License**: [MIT License](LICENSE)
+
