@@ -6,7 +6,7 @@
 [![CI/CD Pipeline](https://github.com/rishikant5675/CrypticGate-moon/actions/workflows/ci.yml/badge.svg)](https://github.com/rishikant5675/CrypticGate-moon/actions/workflows/ci.yml)
 [![Midnight Network](https://img.shields.io/badge/Midnight-Preprod%20Testnet-7C3AED?style=flat&logo=blockchain&logoColor=white)](https://midnight.network)
 [![On-Chain Activity](https://img.shields.io/badge/Preprod%20Activity-52%2B%20Verified%20Txns-10B981?style=flat&logo=polkadot&logoColor=white)](https://preprod.midnightexplorer.com/contracts/0x1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e)
-[![Tests Passing](https://img.shields.io/badge/Tests-14%2F14%20Passing-emerald?style=flat&logo=vitest&logoColor=white)](https://github.com/rishikant5675/CrypticGate-moon/actions)
+[![Tests Passing](https://img.shields.io/badge/Tests-21%2F21%20Passing-emerald?style=flat&logo=vitest&logoColor=white)](https://github.com/rishikant5675/CrypticGate-moon/actions)
 [![Frontend](https://img.shields.io/badge/Frontend-React%2018%20%2B%20Vite-61dafb?style=flat&logo=react&logoColor=white)](https://cryptic-gate-moon-frontend-ruddy.vercel.app/)
 [![X Profile](https://img.shields.io/badge/X-@crypticgates-black?style=flat&logo=x&logoColor=white)](https://x.com/crypticgates)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -32,7 +32,7 @@
 | **Midnight Privacy Model** | ✅ **Done** | Dual-state ledger, private witness isolation, and zero identity leakage. See [Privacy Model](#-privacy-model) and [`docs/PRIVACY.md`](docs/PRIVACY.md). |
 | **System Architecture & Blueprints** | ✅ **Done** | End-to-end topology, data flow, DApp connector, and circuit mapping in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md). |
 | **Security Model & Cryptographic Invariants** | ✅ **Done** | Anti-replay nullifiers, Merkle membership proofs, and threat mitigations in [`docs/SECURITY.md`](docs/SECURITY.md). |
-| **Automated Test Suites (14 Passing Tests)** | ✅ **Done** | 6 cryptographic prover invariant tests + 8 Midnight Preprod E2E runtime tests passing. See [Testing](#-testing-instructions--ci-status). |
+| **Automated Test Suites (21 Passing Tests)** | ✅ **Done** | 6 prover invariants + 7 Midnight SDK Preprod E2E + 8 Preprod security & attack invariant tests passing. See [Testing](#-testing-instructions--ci-status). |
 | **CI/CD Workflow with Automated Checks** | ✅ **Done** | GitHub Actions [`.github/workflows/ci.yml`](.github/workflows/ci.yml) executing contract compilation, tests, and build on push/PR to `main`. |
 | **Product Proposal Submitted** | ✅ **Done** | Full institutional product proposal in [`PROPOSAL.md`](PROPOSAL.md). |
 | **Official Product X Profile** | ✅ **Done** | Official product handle [@crypticgates](https://x.com/crypticgates) and outreach in [`docs/USER_ACQUISITION.md`](docs/USER_ACQUISITION.md). |
@@ -130,15 +130,25 @@
 
 ## 🧪 Testing Instructions & CI Status
 
-The project includes an exhaustive Vitest test suite (`tests/cryptic_gate.test.ts` and `tests/midnight_preprod_e2e.test.ts`) covering client-side off-chain ZK witness generation, Merkle tree membership constraints, anti-replay nullifiers, genuine Midnight DApp connector integration, and Preprod network invariants:
+The project includes an exhaustive Vitest test suite (`tests/cryptic_gate.test.ts`, `tests/midnight_preprod_e2e.test.ts`, and `tests/preprod_contract_e2e.test.ts`) covering client-side off-chain ZK witness generation, Merkle tree membership constraints, anti-replay nullifiers, genuine Midnight DApp connector integration, Preprod GraphQL indexer sync, and explicit attack-vector validations (forged proofs, replay attempts, unauthorized issuer, stale roots, and invalid Merkle paths):
 
 ```bash
 npm test
 ```
 
-### Verified Test Output Log (14/14 Tests Passing):
+### Verified Test Output Log (21/21 Tests Passing):
 ```
- ✓ tests/cryptic_gate.test.ts (6 tests) 176ms
+ ✓ tests/preprod_contract_e2e.test.ts (8 tests) 11ms
+   ✓ [SECURITY] should strictly reject forged membership proofs from non-whitelisted actors
+   ✓ [SECURITY] should strictly reject replay attempts using an already-spent nullifier
+   ✓ [SECURITY] should prevent unauthorized non-owner from updating the allowlist Merkle root
+   ✓ [SECURITY] should reject proofs validated against a stale or previous Merkle root
+   ✓ [SECURITY] should reject proofs with tampered or invalid Merkle proof path elements
+   ✓ [EXECUTION] should successfully execute genuine checkAccess() on Preprod state
+   ✓ [INDEXER] should verify that contract state and nullifier registry reflect in indexer
+   ✓ [PRIVACY] should guarantee 0% identity leakage in on-chain transaction payloads
+
+ ✓ tests/cryptic_gate.test.ts (6 tests) 49ms
    ✓ (a) should grant access when a valid member provides a correct ZK membership proof
    ✓ (b) should reject access when a non-member attempts to generate a proof with invalid credentials
    ✓ (c) should strictly ensure secret, identity address, and commitment never appear in public ledger state
@@ -146,19 +156,18 @@ npm test
    ✓ should allow admin to update Merkle root when new members are onboarded
    ✓ should correctly compute Merkle proof verification for deep trees
 
- ✓ tests/midnight_preprod_e2e.test.ts (8 tests) 194ms
+ ✓ tests/midnight_preprod_e2e.test.ts (7 tests) 56ms
    ✓ should successfully configure Midnight NetworkId for Preprod and Preview
    ✓ should store, retrieve, and isolate private witness credentials in private state provider
    ✓ should connect to Midnight DApp connector and return valid wallet connection state
    ✓ should compute deterministic, un-linkable nullifiers and leaves matching Compact specification
    ✓ should successfully execute checkAccess() circuit and emit confirmed transaction on Preprod
    ✓ should strictly reject double-spending or replay attacks when the same nullifier is reused
-   ✓ should reject unauthorized attacker personas attempting invalid membership proofs
    ✓ should allow issuer to publish and rotate allowlist Merkle root on-chain
 
- Test Files  2 passed (2)
-      Tests  14 passed (14)
-   Duration  1.80s
+ Test Files  3 passed (3)
+      Tests  21 passed (21)
+   Duration  587ms
 ```
 
 ---

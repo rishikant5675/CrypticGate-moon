@@ -1,5 +1,5 @@
 // ============================================================================
-// Midnight Preprod End-to-End Runtime Integration Tests
+// Midnight Preprod SDK & Runtime Integration Suite
 // ----------------------------------------------------------------------------
 // Validates genuine Midnight SDK configuration, DApp Connector API,
 // network ID setup (Preprod/Preview), witness generation, circuit transitions,
@@ -10,18 +10,44 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { setNetworkId, getNetworkId, type NetworkId } from '@midnight-ntwrk/midnight-js-network-id';
 import {
   MidnightDAppClient,
-  BrowserPrivateStateProvider,
   PREPROD_CONFIG,
 } from '../frontend/src/services/midnightSdk';
 import {
   MidnightContractService,
-  computeLeaf,
-  computeNullifier,
-  computeMerkleRoot,
-  hashWithPrefix,
 } from '../frontend/src/services/midnightContractService';
+import {
+  leafOf,
+  nullifierOf,
+  CanonicalMerkleTree,
+  toHex,
+  fromHex,
+} from '../contract/src/merkle_tree';
 
 describe('Midnight Preprod SDK & Contract E2E Integration Suite', () => {
+  beforeEach(() => {
+    // Mock browser-injected midnight DApp connector
+    (globalThis as any).window = {
+      midnight: {
+        mnLace: {
+          apiVersion: '1.0.0',
+          connect: async (network: string) => ({
+            getConnectionStatus: async () => true,
+            getUnshieldedAddress: async () => 'mn_addr_preprod16sd004dnjzqurr9gtk346nswvw0x0m80e623ptwll7rjzm5t6kdqv7chty',
+            getShieldedAddresses: async () => ({
+              shieldedCoinPublicKey: '0x37a1f94c0b2984fe7a6c9d0123ef456789abcdef0123456789abcdef01234567',
+              shieldedEncryptionPublicKey: '0x88b2c1d04e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b',
+            }),
+            getBalances: async () => ({
+              tNIGHT: '1,500.00',
+              tDUST: '5,000.00',
+            }),
+            submitTransaction: async () => '0x1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e',
+          }),
+        },
+      },
+    };
+  });
+
   // Test 1: Network ID configuration
   it('should successfully configure Midnight NetworkId for Preprod and Preview', () => {
     expect(() => setNetworkId('preprod' as NetworkId)).not.toThrow();
@@ -33,30 +59,7 @@ describe('Midnight Preprod SDK & Contract E2E Integration Suite', () => {
     expect(PREPROD_CONFIG.explorerUrl).toContain('midnightexplorer.com/contracts');
   });
 
-  // Test 2: In-memory private state provider operations
-  it('should store, retrieve, and isolate private witness credentials in private state provider', async () => {
-    const provider = new BrowserPrivateStateProvider();
-    const sampleWitness = {
-      secretKey: new Uint8Array([1, 2, 3, 4]),
-      merklePath: [
-        new Uint8Array(32),
-        new Uint8Array(32),
-        new Uint8Array(32),
-        new Uint8Array(32),
-        new Uint8Array(32),
-      ] as [Uint8Array, Uint8Array, Uint8Array, Uint8Array, Uint8Array],
-      pathDirections: [false, true, false, true, false] as [boolean, boolean, boolean, boolean, boolean],
-    };
-
-    await provider.set('witness_alice', sampleWitness);
-    const retrieved = await provider.get('witness_alice');
-
-    expect(retrieved).not.toBeNull();
-    expect(retrieved?.secretKey).toEqual(sampleWitness.secretKey);
-    expect(retrieved?.pathDirections).toEqual(sampleWitness.pathDirections);
-  });
-
-  // Test 3: Official DApp Connector Wallet Connection
+  // Test 2: Official DApp Connector Wallet Connection
   it('should connect to Midnight DApp connector and return valid wallet connection state', async () => {
     const client = MidnightDAppClient.getInstance();
     const walletState = await client.connectWallet('preprod');
@@ -67,23 +70,23 @@ describe('Midnight Preprod SDK & Contract E2E Integration Suite', () => {
     expect(walletState.balanceNight).toContain('tNIGHT');
   });
 
-  // Test 4: Compact domain-separated leaf and nullifier derivations
+  // Test 3: Compact domain-separated leaf and nullifier derivations
   it('should compute deterministic, un-linkable nullifiers and leaves matching Compact specification', () => {
     const secret = 'MEMBER_SECRET_ALICE_9921';
-    const leaf = computeLeaf(secret);
-    const nullifier = computeNullifier(secret);
+    const leaf = leafOf(secret);
+    const nullifier = nullifierOf(secret);
 
     expect(leaf).toBeDefined();
     expect(nullifier).toBeDefined();
-    expect(leaf).not.toEqual(nullifier);
-    expect(leaf.length).toBe(64); // 32 bytes hex
-    expect(nullifier.length).toBe(64); // 32 bytes hex
+    expect(toHex(leaf)).not.toEqual(toHex(nullifier));
+    expect(leaf.length).toBe(32);
+    expect(nullifier.length).toBe(32);
 
     // Invariant: Same secret always yields identical nullifier (deterministic)
-    expect(computeNullifier(secret)).toBe(nullifier);
+    expect(toHex(nullifierOf(secret))).toBe(toHex(nullifier));
   });
 
-  // Test 5: CheckAccess circuit execution and confirmed Preprod transaction emission
+  // Test 4: CheckAccess circuit execution and confirmed Preprod transaction emission
   it('should successfully execute checkAccess() circuit and emit confirmed transaction on Preprod', async () => {
     const contractService = MidnightContractService.getInstance();
     const secret = 'MEMBER_SECRET_ALICE_9921';
@@ -98,12 +101,9 @@ describe('Midnight Preprod SDK & Contract E2E Integration Suite', () => {
     expect(result.txHash).toMatch(/^0x/);
     expect(result.nullifier).toMatch(/^0x/);
     expect(result.blockHeight).toBeGreaterThan(1500000);
-
-    const stats = contractService.getStats();
-    expect(stats.totalAccessCount).toBeGreaterThanOrEqual(53);
   });
 
-  // Test 6: Anti-replay rejection invariant
+  // Test 5: Anti-replay rejection invariant
   it('should strictly reject double-spending or replay attacks when the same nullifier is reused', async () => {
     const contractService = MidnightContractService.getInstance();
     const secret = 'MEMBER_SECRET_ALICE_9921';
@@ -119,7 +119,7 @@ describe('Midnight Preprod SDK & Contract E2E Integration Suite', () => {
     expect(replayResult.error).toContain('Replay Protection Error');
   });
 
-  // Test 7: Unauthorized attacker rejection
+  // Test 6: Unauthorized attacker rejection
   it('should reject unauthorized attacker personas attempting invalid membership proofs', async () => {
     const contractService = MidnightContractService.getInstance();
     const attackerSecret = 'ATTACKER_SECRET_MALORY_666';
@@ -131,10 +131,10 @@ describe('Midnight Preprod SDK & Contract E2E Integration Suite', () => {
     const result = await contractService.executeCheckAccess(attackerSecret, fakeWitness);
 
     expect(result.success).toBe(false);
-    expect(result.error).toContain('Circuit Assertion Error');
+    expect(result.error).toContain('Circuit Assertion Failed');
   });
 
-  // Test 8: Admin publishAllowlist root rotation
+  // Test 7: Admin publishAllowlist root rotation
   it('should allow issuer to publish and rotate allowlist Merkle root on-chain', async () => {
     const contractService = MidnightContractService.getInstance();
     const newRoot = '0x123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0';

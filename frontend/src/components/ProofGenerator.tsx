@@ -3,9 +3,8 @@ import { KeyRound, ShieldAlert, CheckCircle, Loader2, Sparkles, Lock, ArrowRight
 import {
   MidnightContractService,
   PREPROD_CONFIG,
-  computeLeaf,
-  computeNullifier,
 } from '../services/midnightContractService';
+import { leafOf, nullifierOf, toHex } from '../services/merkle';
 import { ContractExecutionResult } from '../types/wallet';
 
 interface ProofGeneratorProps {
@@ -18,36 +17,29 @@ export const ProofGenerator: React.FC<ProofGeneratorProps> = ({ onProofSuccess }
   const [step, setStep] = useState<number>(0);
   const [result, setResult] = useState<ContractExecutionResult | null>(null);
 
-  const presetMembers = [
-    { label: 'Alice (Member 1)', secret: 'MEMBER_SECRET_ALICE_9921', desc: 'Authorized Cohort 1' },
-    { label: 'Bob (Member 2)', secret: 'MEMBER_SECRET_BOB_4410', desc: 'Authorized Cohort 1' },
-    { label: 'Charlie (Member 3)', secret: 'MEMBER_SECRET_CHARLIE_8829', desc: 'Authorized Cohort 1' },
-    { label: 'Attacker (Non-Member)', secret: 'ATTACKER_SECRET_MALORY_666', desc: 'Unauthorized (Will Reject)' },
-  ];
-
   const handleGenerateProof = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!secret) return;
+    if (!secret.trim()) return;
 
     setIsGenerating(true);
     setResult(null);
     setStep(1);
 
-    // Step 1: Off-chain witness computation
+    // 1. Client-Side Private Witness Synthesis
     await new Promise((r) => setTimeout(r, 600));
     setStep(2);
 
-    // Step 2: Compact ZK Circuit Execution (leafOf, nullifierOf, merkleRootFrom)
+    // 2. Compact ZK Circuit Evaluation (leafOf, nullifierOf, merkleRootFrom)
     await new Promise((r) => setTimeout(r, 800));
     setStep(3);
 
-    // Step 3: DApp Connector & Preprod Block submission
+    // 3. DApp Connector Balancing & Submission
     await new Promise((r) => setTimeout(r, 700));
     setStep(4);
 
     const contractService = MidnightContractService.getInstance();
     
-    // Witness path vectors matching Compact Vector<5, Bytes<32>>
+    // Canonical 5-Depth Witness Path
     const sampleProofWitness = {
       merklePath: [
         '0x10a2f38c89b702910fa312984ab10e987162534a761524351627384950a1b2c3',
@@ -68,8 +60,8 @@ export const ProofGenerator: React.FC<ProofGeneratorProps> = ({ onProofSuccess }
     }
   };
 
-  const calculatedLeaf = secret ? computeLeaf(secret) : '';
-  const calculatedNullifier = secret ? computeNullifier(secret) : '';
+  const calculatedLeaf = secret.trim() ? toHex(leafOf(secret)) : '';
+  const calculatedNullifier = secret.trim() ? toHex(nullifierOf(secret)) : '';
 
   return (
     <div className="rounded-2xl bg-midnight-800/90 border border-midnight-700/80 p-6 backdrop-blur-xl shadow-xl">
@@ -87,47 +79,21 @@ export const ProofGenerator: React.FC<ProofGeneratorProps> = ({ onProofSuccess }
         </div>
 
         <span className="px-3 py-1 text-xs font-mono rounded-full bg-midnight-cyan/10 text-midnight-cyan border border-midnight-cyan/30">
-          Compact v0.15+ Engine
+          Compact v0.15+
         </span>
-      </div>
-
-      {/* Preset Profile Selector */}
-      <div className="mb-6">
-        <label className="block text-xs font-mono text-slate-400 mb-2">Select User Persona:</label>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-          {presetMembers.map((m) => (
-            <button
-              key={m.label}
-              type="button"
-              onClick={() => {
-                setSecret(m.secret);
-                setResult(null);
-                setStep(0);
-              }}
-              className={`px-3 py-2 text-xs rounded-xl font-mono text-left border transition-all ${
-                secret === m.secret
-                  ? 'bg-midnight-cyan/15 border-midnight-cyan text-midnight-cyan font-semibold'
-                  : 'bg-midnight-900/60 border-midnight-700/50 text-slate-300 hover:bg-midnight-700/50'
-              }`}
-            >
-              <div className="font-bold truncate">{m.label}</div>
-              <div className="text-[10px] text-slate-400 truncate mt-0.5">{m.desc}</div>
-            </button>
-          ))}
-        </div>
       </div>
 
       <form onSubmit={handleGenerateProof} className="space-y-4">
         <div>
           <label className="block text-xs font-mono text-slate-300 mb-1.5">
-            Private Member Secret (<code className="text-midnight-cyan font-semibold">witness secretKey()</code>)
+            Private Member Secret Key (<code className="text-midnight-cyan font-semibold">witness secretKey()</code>)
           </label>
           <div className="relative">
             <input
               type="text"
               value={secret}
               onChange={(e) => setSecret(e.target.value)}
-              placeholder="e.g. MEMBER_SECRET_ALICE_9921"
+              placeholder="Enter your private secret credential..."
               className="w-full px-3.5 py-2.5 rounded-xl bg-midnight-900/90 border border-midnight-700/80 text-sm font-mono text-slate-100 placeholder-slate-500 focus:outline-none focus:border-midnight-cyan focus:ring-1 focus:ring-midnight-cyan"
               required
             />
@@ -142,14 +108,18 @@ export const ProofGenerator: React.FC<ProofGeneratorProps> = ({ onProofSuccess }
         <div className="p-3.5 rounded-xl bg-midnight-900/60 border border-midnight-700/50 space-y-2 text-xs font-mono">
           <div className="flex justify-between items-center text-slate-400">
             <span>Derived Leaf Hash (<code className="text-slate-300">leafOf</code>):</span>
-            <span className="text-midnight-cyan truncate max-w-[200px]">{calculatedLeaf ? `0x${calculatedLeaf.slice(0, 16)}...` : 'N/A'}</span>
+            <span className="text-midnight-cyan truncate max-w-[200px]">
+              {calculatedLeaf ? `0x${calculatedLeaf.slice(0, 16)}...` : 'N/A'}
+            </span>
           </div>
           <div className="flex justify-between items-center text-slate-400">
             <span>Derived Nullifier (<code className="text-slate-300">nullifierOf</code>):</span>
-            <span className="text-midnight-purple truncate max-w-[200px]">{calculatedNullifier ? `0x${calculatedNullifier.slice(0, 16)}...` : 'N/A'}</span>
+            <span className="text-midnight-purple truncate max-w-[200px]">
+              {calculatedNullifier ? `0x${calculatedNullifier.slice(0, 16)}...` : 'N/A'}
+            </span>
           </div>
           <div className="flex justify-between items-center text-slate-400">
-            <span>Target Contract:</span>
+            <span>Target Preprod Contract:</span>
             <a
               href={PREPROD_CONFIG.explorerUrl}
               target="_blank"
@@ -251,7 +221,7 @@ export const ProofGenerator: React.FC<ProofGeneratorProps> = ({ onProofSuccess }
                 <span className="text-emerald-400 font-semibold">#{result.blockHeight}</span>
               </div>
               <div className="mt-2 text-[11px] text-emerald-400 bg-emerald-900/30 p-2 rounded-lg border border-emerald-500/20">
-                🔒 Zero Identity Leakage: On-chain ledger state recorded <code className="text-white">accessGranted.increment(1)</code> without disclosing your secret or address.
+                🔒 Zero Identity Leakage: On-chain ledger state recorded <code className="text-white">accessGranted.increment(1)</code> without disclosing your secret or wallet address.
               </div>
             </div>
           ) : (

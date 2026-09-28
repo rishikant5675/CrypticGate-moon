@@ -9,14 +9,14 @@ import {
   PREPROD_CONFIG,
 } from './services/midnightContractService';
 import { WalletAccount, AllowlistStats } from './types/wallet';
-import { Activity, ShieldCheck, Lock, ExternalLink, Cpu, CheckCircle2 } from 'lucide-react';
+import { ConfirmedTransaction } from './services/indexerService';
+import { Activity, ShieldCheck, Lock, ExternalLink, Cpu, CheckCircle2, RefreshCw } from 'lucide-react';
 
 export const App: React.FC = () => {
   const [account, setAccount] = useState<WalletAccount | null>(null);
   const [stats, setStats] = useState<AllowlistStats | null>(null);
-  const [eventLogs, setEventLogs] = useState<
-    Array<{ txHash: string; nullifier: string; timestamp: string; status: string }>
-  >([]);
+  const [eventLogs, setEventLogs] = useState<ConfirmedTransaction[]>([]);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   useEffect(() => {
     const wallet = MidnightWalletService.getInstance();
@@ -25,7 +25,7 @@ export const App: React.FC = () => {
     const contractService = MidnightContractService.getInstance();
     const unsubStats = contractService.subscribe((newStats) => {
       setStats(newStats);
-      setEventLogs([...contractService.getEventLog()]);
+      setEventLogs([...contractService.getEventLogs()]);
     });
 
     return () => {
@@ -49,9 +49,12 @@ export const App: React.FC = () => {
     wallet.disconnect();
   };
 
-  const handleProofSuccess = () => {
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
     const contractService = MidnightContractService.getInstance();
-    setEventLogs([...contractService.getEventLog()]);
+    await contractService.refreshState();
+    setEventLogs([...contractService.getEventLogs()]);
+    setIsRefreshing(false);
   };
 
   return (
@@ -83,8 +86,8 @@ export const App: React.FC = () => {
 
         {/* Core App Grid: Prover & Admin */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <ProofGenerator onProofSuccess={handleProofSuccess} />
-          <AdminPortal onRootUpdated={handleProofSuccess} />
+          <ProofGenerator onProofSuccess={handleRefresh} />
+          <AdminPortal onRootUpdated={handleRefresh} />
         </div>
 
         {/* Live Preprod Ledger Event Monitor */}
@@ -93,10 +96,18 @@ export const App: React.FC = () => {
             <div className="flex items-center space-x-3">
               <Activity className="w-5 h-5 text-midnight-cyan" />
               <h3 className="text-base font-bold text-white">
-                Live Midnight Preprod Ledger Monitor (<code className="text-midnight-cyan">checkAccess</code>)
+                Confirmed Midnight Preprod Ledger State (<code className="text-midnight-cyan">checkAccess</code>)
               </h3>
             </div>
-            <div className="flex items-center space-x-2 text-xs font-mono text-slate-400">
+            <div className="flex items-center space-x-3 text-xs font-mono text-slate-400">
+              <button
+                onClick={handleRefresh}
+                disabled={isRefreshing}
+                className="flex items-center space-x-1 px-2.5 py-1 rounded-lg bg-midnight-700 hover:bg-midnight-600 text-slate-200 transition-all disabled:opacity-50"
+              >
+                <RefreshCw className={`w-3 h-3 ${isRefreshing ? 'animate-spin' : ''}`} />
+                <span>Sync Indexer</span>
+              </button>
               <span>Contract:</span>
               <a
                 href={PREPROD_CONFIG.explorerUrl}
@@ -112,7 +123,7 @@ export const App: React.FC = () => {
 
           {eventLogs.length === 0 ? (
             <div className="text-center py-8 border border-dashed border-midnight-700/60 rounded-xl text-slate-500 text-xs font-mono">
-              Ready to verify proofs. Execute a membership proof above to generate a Preprod transaction!
+              Ready to verify proofs. Execute a membership proof above to generate an on-chain transaction!
             </div>
           ) : (
             <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
@@ -136,6 +147,7 @@ export const App: React.FC = () => {
                     </a>
                   </div>
                   <div className="flex items-center space-x-4 text-slate-400 text-[11px]">
+                    <span>Block #{log.blockHeight}</span>
                     <span className="text-slate-500">{log.timestamp}</span>
                     <span className="text-emerald-400 font-semibold">{log.status}</span>
                   </div>

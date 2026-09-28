@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Database, Plus, Check, Server, ShieldCheck, Rocket, ExternalLink, RefreshCw } from 'lucide-react';
-import { MidnightContractService, PREPROD_CONFIG, computeLeaf } from '../services/midnightContractService';
+import { MidnightContractService, PREPROD_CONFIG } from '../services/midnightContractService';
+import { leafOf, toHex } from '../services/merkle';
 import { AllowlistStats } from '../types/wallet';
 
 interface AdminPortalProps {
@@ -10,9 +11,9 @@ interface AdminPortalProps {
 export const AdminPortal: React.FC<AdminPortalProps> = ({ onRootUpdated }) => {
   const [newSecret, setNewSecret] = useState('');
   const [members, setMembers] = useState<{ secret: string; leaf: string }[]>([
-    { secret: 'MEMBER_SECRET_ALICE_9921', leaf: computeLeaf('MEMBER_SECRET_ALICE_9921') },
-    { secret: 'MEMBER_SECRET_BOB_4410', leaf: computeLeaf('MEMBER_SECRET_BOB_4410') },
-    { secret: 'MEMBER_SECRET_CHARLIE_8829', leaf: computeLeaf('MEMBER_SECRET_CHARLIE_8829') },
+    { secret: 'MEMBER_SECRET_ALICE_9921', leaf: toHex(leafOf('MEMBER_SECRET_ALICE_9921')) },
+    { secret: 'MEMBER_SECRET_BOB_4410', leaf: toHex(leafOf('MEMBER_SECRET_BOB_4410')) },
+    { secret: 'MEMBER_SECRET_CHARLIE_8829', leaf: toHex(leafOf('MEMBER_SECRET_CHARLIE_8829')) },
   ]);
   const [stats, setStats] = useState<AllowlistStats | null>(null);
   const [statusMsg, setStatusMsg] = useState('');
@@ -26,13 +27,13 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onRootUpdated }) => {
 
   const handleAddMember = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newSecret) return;
+    if (!newSecret.trim()) return;
 
-    const leaf = computeLeaf(newSecret);
-    const updated = [...members, { secret: newSecret, leaf }];
+    const leaf = toHex(leafOf(newSecret.trim()));
+    const updated = [...members, { secret: newSecret.trim(), leaf }];
     setMembers(updated);
 
-    // Derive new Merkle root
+    // Compute updated Merkle root
     const newRoot = `0x${leaf.slice(0, 32)}${updated.length.toString(16).padStart(32, '0')}`;
     
     setIsPublishing(true);
