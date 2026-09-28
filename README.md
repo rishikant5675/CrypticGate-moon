@@ -1,74 +1,110 @@
+<div align="center">
+
 # CrypticGate 🛡️
-> **Private Allowlist Access Protocol powered by Midnight Blockchain ZK Proofs**
+### **Private Allowlist Access Protocol powered by Midnight Blockchain Compact ZK Proofs**
 
 [![CI/CD Pipeline](https://github.com/rishikant5675/CrypticGate-moon/actions/workflows/ci.yml/badge.svg)](https://github.com/rishikant5675/CrypticGate-moon/actions/workflows/ci.yml)
-[![Midnight SDK](https://img.shields.io/badge/Midnight-Compact%20ZK-7C3AED)](https://midnight.network)
-[![X Profile](https://img.shields.io/badge/X-@crypticgates-black?logo=x&logoColor=white)](https://x.com/crypticgates)
+[![Midnight Network](https://img.shields.io/badge/Midnight-Preprod%20Testnet-7C3AED?style=flat&logo=blockchain&logoColor=white)](https://midnight.network)
+[![On-Chain Activity](https://img.shields.io/badge/Preprod%20Activity-52%2B%20Verified%20Txns-10B981?style=flat&logo=polkadot&logoColor=white)](https://preprod.midnightexplorer.com/contracts/0x1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e)
+[![Tests Passing](https://img.shields.io/badge/Tests-14%2F14%20Passing-emerald?style=flat&logo=vitest&logoColor=white)](https://github.com/rishikant5675/CrypticGate-moon/actions)
+[![Frontend](https://img.shields.io/badge/Frontend-React%2018%20%2B%20Vite-61dafb?style=flat&logo=react&logoColor=white)](https://cryptic-gate-moon-frontend-ruddy.vercel.app/)
+[![X Profile](https://img.shields.io/badge/X-@crypticgates-black?style=flat&logo=x&logoColor=white)](https://x.com/crypticgates)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-Live Demo: [https://cryptic-gate-moon-frontend-ruddy.vercel.app/](https://cryptic-gate-moon-frontend-ruddy.vercel.app/) | 🐦 **Product X Profile**: [https://x.com/crypticgates](https://x.com/crypticgates) | 🎬 **Demo Video**: [Watch 1-Min Video](https://photos.app.goo.gl/r2iaNzsMzdTSsBER8)
+<p align="center">
+  <strong>Prove allowlist membership and gate authorization using Zero-Knowledge proofs without ever leaking your wallet address, private credentials, or Merkle leaf index on-chain.</strong>
+</p>
+
+</div>
 
 ---
 
-## 📌 Project Overview & Problem Statement
+## 📋 Submission Checklist
 
-Modern dApps frequently need to gate access—whether for token whitelist sales, exclusive community portals, private DAO voting, or alpha feature releases. However, on public blockchains like Ethereum, proving membership requires broadcasting your public address or signing an on-chain transaction. This destroys user anonymity, linking personal identity to complete financial history and transaction graphs.
-
-**CrypticGate** solves this fundamental flaw using **Midnight's Compact ZK language**. Members prove they belong to an admin's private allowlist using zero-knowledge membership proofs without ever exposing their public key, wallet address, or specific commitment index to the public ledger.
-
----
-
-## 📸 Screenshots & Visual Evidence
-
-### 1. Application UI Dashboard
-![CrypticGate UI Dashboard](./docs/screenshots/ui_dashboard.png)
-*CrypticGate interactive dashboard featuring Lace & 1AM wallet connection, ZK proof generator, and live ledger event monitor.*
-
-### 2. Passing Unit Tests Output (6/6 Passed)
-![Vitest Unit Tests Passing](./docs/screenshots/unit_tests.png)
-*Vitest unit test suite validating valid member proofs, non-member rejection, and zero identity leakage on public ledger.*
-
-### 3. GitHub Actions CI/CD Pipeline
-![GitHub Actions CI/CD Passing Run](./docs/screenshots/ci_cd_workflow.png)
-*Automated GitHub Actions CI/CD pipeline executing contract compilation, frontend build, and full test suite on push.*
+| Requirement | Status | Evidence / Details |
+|:---|:---:|:---|
+| **Public GitHub Repository with updated docs** | ✅ **Done** | [`rishikant5675/CrypticGate-moon`](https://github.com/rishikant5675/CrypticGate-moon) with architecture specs, security models, and setup instructions. |
+| **Live Demo Link** | ✅ **Done** | [cryptic-gate-moon-frontend-ruddy.vercel.app](https://cryptic-gate-moon-frontend-ruddy.vercel.app/) deployed on Vercel. See [Live Demo](#-live-demo). |
+| **Demo Video showing MVP functionality** | ✅ **Done** | [Watch 1-Min Demo Video](https://photos.app.goo.gl/r2iaNzsMzdTSsBER8). See [Demo Video](#-demo-video). |
+| **Contract Address (Preprod)** | ✅ **Done** | Preprod [`0x1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e`](https://preprod.midnightexplorer.com/contracts/0x1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e) (**52+ verified on-chain transactions**). |
+| **List of 50 Preprod User Wallets (Verifiable)** | ✅ **Done** | 50 on-chain verifiable testnet addresses documented in [`USERS.md`](USERS.md) and [`PREPROD_USERS.md`](PREPROD_USERS.md). |
+| **Feedback Documentation & Loop** | ✅ **Done** | 50 user evaluations, rating analytics (⭐ **4.92/5.00**), and responses in [`docs/FEEDBACK.md`](docs/FEEDBACK.md) and [Live Google Sheet](https://docs.google.com/spreadsheets/d/17tncAEPoifSkyaThPoxc1u6GYfmSaTwwFF6BGbuLkSI/edit?usp=sharing). |
+| **Midnight Privacy Model** | ✅ **Done** | Dual-state ledger, private witness isolation, and zero identity leakage. See [Privacy Model](#-privacy-model) and [`docs/PRIVACY.md`](docs/PRIVACY.md). |
+| **System Architecture & Blueprints** | ✅ **Done** | End-to-end topology, data flow, DApp connector, and circuit mapping in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md). |
+| **Security Model & Cryptographic Invariants** | ✅ **Done** | Anti-replay nullifiers, Merkle membership proofs, and threat mitigations in [`docs/SECURITY.md`](docs/SECURITY.md). |
+| **Automated Test Suites (14 Passing Tests)** | ✅ **Done** | 6 cryptographic prover invariant tests + 8 Midnight Preprod E2E runtime tests passing. See [Testing](#-testing-instructions--ci-status). |
+| **CI/CD Workflow with Automated Checks** | ✅ **Done** | GitHub Actions [`.github/workflows/ci.yml`](.github/workflows/ci.yml) executing contract compilation, tests, and build on push/PR to `main`. |
+| **Product Proposal Submitted** | ✅ **Done** | Full institutional product proposal in [`PROPOSAL.md`](PROPOSAL.md). |
+| **Official Product X Profile** | ✅ **Done** | Official product handle [@crypticgates](https://x.com/crypticgates) and outreach in [`docs/USER_ACQUISITION.md`](docs/USER_ACQUISITION.md). |
+| **Minimum 20 Meaningful Commits** | ✅ **Done** | **66+ meaningful commits** across contract development, test suites, and frontend dApp. |
 
 ---
 
-## 🏗️ Architecture & Official Midnight Execution Flow
+## 🌐 Live Demo & Resources
+
+- 🚀 **Live Web Application**: [https://cryptic-gate-moon-frontend-ruddy.vercel.app/](https://cryptic-gate-moon-frontend-ruddy.vercel.app/)
+- 🎬 **Video Demo Walkthrough**: [Watch MVP Demo Video](https://photos.app.goo.gl/r2iaNzsMzdTSsBER8)
+- 🐦 **Product X Profile**: [https://x.com/crypticgates](https://x.com/crypticgates)
+- 📋 **Feedback Google Form**: [CrypticGate Feedback Form](https://docs.google.com/forms/d/e/1FAIpQLSfZ-1ebh6gh70VYt6_B-2DgRjeNxMwVW-ZlrPhTSn7yDUCFXw/viewform)
+- 📊 **Live Feedback Responses Sheet**: [Google Sheets Responses](https://docs.google.com/spreadsheets/d/17tncAEPoifSkyaThPoxc1u6GYfmSaTwwFF6BGbuLkSI/edit?usp=sharing)
+
+---
+
+## 📜 Deployed Contract Address
+
+> [!IMPORTANT]
+> ### 🛡️ Verified On-Chain Volume: 52+ Preprod Contract Transactions
+> The CrypticGate Preprod contract has successfully processed and finalized **52+ on-chain transactions** across community feedback testing.
+
+| Parameter | Value |
+| :--- | :--- |
+| **Network** | `Midnight Preprod (Testnet)` |
+| **Contract Address** | [`0x1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e`](https://preprod.midnightexplorer.com/contracts/0x1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e) |
+| **Midnight Explorer** | [View On-Chain Activity on Explorer](https://preprod.midnightexplorer.com/contracts/0x1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e) |
+| **GraphQL Indexer** | `https://indexer.preprod.midnight.network/api/v4/graphql` |
+| **Compact Contract** | [`contracts/cryptic_gate.compact`](contracts/cryptic_gate.compact) |
+| **Verified User Ledger** | [`USERS.md`](USERS.md) & [`PREPROD_USERS.md`](PREPROD_USERS.md) (50 verified wallet addresses) |
+
+---
+
+## 🏗️ System Architecture & Execution Flow
 
 ```
  +-----------------------------------------------------------------------+
- |                            USER SIDE (OFF-CHAIN)                      |
+ |                     OFF-CHAIN PROVER & DAPP CONNECTOR                 |
  |                                                                       |
- |   [Private Secret + Salt] ----> [Compact Circuit Witness Generator]   |
- |                                                |                      |
- |                                                v                      |
- |                                    [ZK Proof + Nullifier]             |
- +------------------------------------------------|----------------------+
-                                                  |
-                                                  v
+ |   [Private Secret + Merkle Path]                                      |
+ |                 │                                                     |
+ |                 ▼                                                     |
+ |   [Compact Witness Generator] ──> [Midnight HTTP Proof Provider]      |
+ |                 │                                                     |
+ |                 ▼                                                     |
+ |   [ZK Proof + Nullifier] ───────> [Midnight Lace / 1AM DApp Connector]|
+ +─────────────────┬─────────────────────────────────────────────────────+
+                   │ (Signed Transaction Submission)
+                   ▼
  +-----------------------------------------------------------------------+
- |                        MIDNIGHT PUBLIC LEDGER                         |
+ |                     MIDNIGHT PREPROD BLOCKCHAIN                       |
  |                                                                       |
- |   +---------------------------------------------------------------+   |
- |   | CrypticGate Smart Contract (cryptic_gate.compact)             |   |
+ |   +───────────────────────────────────────────────────────────────+   |
+ |   | CrypticGate Smart Contract (contracts/cryptic_gate.compact)   |   |
  |   |                                                               |   |
- |   |  1. Verifies ZK Proof against stored Merkle Root             |   |
- |   |  2. Checks & inserts single-use Nullifier                     |   |
- |   |  3. Emits public state: accessGranted = true                  |   |
- |   +---------------------------------------------------------------+   |
+ |   |  1. Verifies ZK Proof against allowlistRoot                   |   |
+ |   |  2. Asserts nullifier is not member of nullifiers Set         |   |
+ |   |  3. Inserts nullifier to prevent double-spending              |   |
+ |   |  4. Increments accessGranted counter                          |   |
+ |   +───────────────────────────────────────────────────────────────+   |
  |                                                                       |
  |  Public Ledger State Output:                                          |
- |  • accessGranted: true                                                |
- |  • totalAccessCount: +1                                               |
- |  • nullifier: 0xf4e892c900a... (1-way un-linkable hash)               |
- |  • Identity/Address/Secret: Completely ABSENT & UNKNOWABLE            |
+ |  • accessGranted: Counter + 1                                         |
+ |  • nullifiers: { 0xf4e892c900a... } (1-way un-linkable hash)           |
+ |  • Identity/Address/Secret: Completely ABSENT & ZERO LEAKAGE          |
+ +─────────────────┬─────────────────────────────────────────────────────+
+                   │
+                   ▼
  +-----------------------------------------------------------------------+
-                                                  |
-                                                  v
- +-----------------------------------------------------------------------+
- |                     BACKEND EVENT INDEXER (OPTIONAL)                  |
- |   Node.js / Express service listening for accessGranted events        |
+ |               MIDNIGHT GRAPHQL INDEXER & EVENT MONITOR                |
+ |   https://indexer.preprod.midnight.network/api/v4/graphql             |
  +-----------------------------------------------------------------------+
 ```
 
@@ -76,77 +112,19 @@ Modern dApps frequently need to gate access—whether for token whitelist sales,
 
 ## 🔐 Privacy Model
 
-### An Observer of the Public Ledger CAN See:
+### What an Observer of the Public Ledger CAN See:
 1. **Public Execution Output**: A verified boolean signal `accessGranted = true`.
 2. **Global Access Counter**: Incremental count of total valid access proofs generated (`totalAccessCount`).
 3. **Single-Use Nullifier**: A deterministic 1-way cryptographic hash ensuring duplicate access proofs cannot be replayed.
 4. **Allowlist Merkle Root**: The root hash of the hashed commitment set maintained by the admin.
 
-### An Observer CANNOT See (Zero Leakage):
+### What an Observer CANNOT See (Zero Leakage):
 1. **Which member proved access**: The specific leaf index or identity in the Merkle tree remains 100% private.
 2. **Prover's Wallet Address / Identity**: Raw wallet addresses or public keys are never referenced in the proof or contract state.
 3. **Member Secret & Salt**: Private credentials never leave the user's browser/local environment.
 4. **Full Allowlist Identities**: Raw member identities are never uploaded to the blockchain.
 
----
-
-## 📜 Contract Address
-
-The CrypticGate smart contract has been successfully deployed and verified on the Midnight Preprod network via GitHub Actions CI pipeline.
-
-- **Network**: Midnight Preprod
-- **Contract Address**: `1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e`
-- **Midnight Explorer**: [https://preprod.midnightexplorer.com/contracts/0x1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e](https://preprod.midnightexplorer.com/contracts/0x1fbba1f1ec77fd9b00e8381a3229a4043e69cf964df5cdad3abb53136dc44f3e)
-- **Deployment Pipeline**: GitHub Actions Preprod Fast Pipeline (with 10GB Swap & WASM Memory Optimizations)
-- **Verified Preprod Transactions (52/52)**: [`PREPROD_USERS.md`](./PREPROD_USERS.md)
-
----
-
-## 📝 User Feedback & Level 5 Testing Cohort
-
-We actively gather user testing feedback and verification ratings from 50+ community participants on the Midnight Preprod Network.
-
-- 📑 **Comprehensive Feedback Report**: [`docs/FEEDBACK.md`](./docs/FEEDBACK.md) (Rating: ⭐ 4.92/5.00, outreach templates, 50 detailed reviews)
-- 👥 **50 Verified Preprod Users Ledger**: [`USERS.md`](./USERS.md) & [`PREPROD_USERS.md`](./PREPROD_USERS.md)
-- 📋 **Submit Feedback (Google Form)**: [Cryptic-gate_Moon Feedback Form](https://docs.google.com/forms/d/e/1FAIpQLSfZ-1ebh6gh70VYt6_B-2DgRjeNxMwVW-ZlrPhTSn7yDUCFXw/viewform)
-- 📊 **Live Feedback Responses (Google Sheet)**: [View Community Responses Sheet](https://docs.google.com/spreadsheets/d/17tncAEPoifSkyaThPoxc1u6GYfmSaTwwFF6BGbuLkSI/edit?usp=sharing)
-
----
-
-## 🚀 Setup & Run Instructions
-
-### Prerequisites
-- Node.js >= 18.0.0
-- npm >= 9.0.0
-
-### Quickstart
-
-1. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/rishikant5675/CrypticGate-moon.git
-   cd CrypticGate-moon
-   ```
-
-2. **Install Dependencies:**
-   ```bash
-   npm install
-   ```
-
-3. **Run Unit Tests:**
-   ```bash
-   npm test
-   ```
-
-4. **Launch Frontend Development Server:**
-   ```bash
-   npm run dev
-   ```
-   Open `http://localhost:3000` in your browser.
-
-5. **Start Backend Event Indexer (Optional):**
-   ```bash
-   npm --prefix indexer dev
-   ```
+*For complete threat models and disclosure policies, see [`docs/PRIVACY.md`](docs/PRIVACY.md) and [`docs/SECURITY.md`](docs/SECURITY.md).*
 
 ---
 
@@ -183,45 +161,57 @@ npm test
    Duration  1.80s
 ```
 
-### 📑 Product Proposal & Specifications
-Read the full institutional architecture specification and privacy threat model in [`PROPOSAL.md`](./PROPOSAL.md).
+---
+
+## 🚀 Setup & Run Locally
+
+### Prerequisites
+- Node.js >= 18.0.0
+- npm >= 9.0.0
+
+### Quickstart
+
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/rishikant5675/CrypticGate-moon.git
+   cd CrypticGate-moon
+   ```
+
+2. **Install Dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Run Unit & E2E Tests:**
+   ```bash
+   npm test
+   ```
+
+4. **Launch Frontend Development Server:**
+   ```bash
+   npm run dev
+   ```
+   Open `http://localhost:5173` (or `http://localhost:3000`) in your browser.
 
 ---
 
-## 🎬 1-Minute Demo Video & Script Outline
+## 📄 Documentation Hub
 
-🎥 **Watch Full Demo Video**: [https://photos.app.goo.gl/r2iaNzsMzdTSsBER8](https://photos.app.goo.gl/r2iaNzsMzdTSsBER8)
-
-[![Watch Demo Video](https://img.shields.io/badge/Demo_Video-Watch_on_Google_Photos-FF4500?style=for-the-badge&logo=googlephotos)](https://photos.app.goo.gl/r2iaNzsMzdTSsBER8)
-
-- **0:00 - 0:15 | Introduction & Wallet Connection**
-  - Show CrypticGate dashboard. Click **Connect Lace / 1AM Wallet**.
-  - Highlight network badge: *Midnight Testnet*.
-
-- **0:15 - 0:35 | ZK Proof Generation**
-  - Select preset profile **Alice (Member 1)**.
-  - Point out computed commitment (private witness) vs computed nullifier.
-  - Click **Generate & Submit ZK Proof**. Show real-time Compact ZK circuit step-by-step progress.
-
-- **0:35 - 0:50 | On-Chain Verification**
-  - View green status panel: `ACCESS GRANTED (accessGranted = true)`.
-  - Show live ledger event monitor updating with nullifier.
-
-- **0:50 - 1:00 | Privacy Guarantee Inspection**
-  - Open ledger state inspector.
-  - Highlight that Alice's address, identity, secret, and tree index are **completely absent** from the public ledger.
+- 📑 [**Product Proposal & Technical Spec**](PROPOSAL.md)
+- 🏗️ [**System Architecture Blueprint**](docs/ARCHITECTURE.md)
+- 🔐 [**Privacy Model & Disclosures**](docs/PRIVACY.md)
+- 🛡️ [**Security Analysis & Invariants**](docs/SECURITY.md)
+- 📖 [**Step-by-Step Usage Guide**](docs/USAGE.md)
+- 👥 [**50 Verified Preprod Users**](USERS.md) & [**PREPROD_USERS.md**](PREPROD_USERS.md)
+- 📝 [**Community Feedback Report**](docs/FEEDBACK.md)
+- 📣 [**User Acquisition Strategy**](docs/USER_ACQUISITION.md)
 
 ---
 
-## 👤 Author & Product Links
+## 👤 Author & Links
 
-- **Product X (Twitter)**: [https://x.com/crypticgates](https://x.com/crypticgates)
 - **Author / Developer**: `rishikant5675`
 - **Email**: `rishigshshsh@gmail.com`
+- **Product X (Twitter)**: [https://x.com/crypticgates](https://x.com/crypticgates)
 - **GitHub Repository**: [https://github.com/rishikant5675/CrypticGate-moon](https://github.com/rishikant5675/CrypticGate-moon)
-- **Hackathon Project**: CrypticGate — Midnight Private Allowlist Access Protocol
-
----
-
-## 📄 License
-MIT License. Created for the Midnight Blockchain Hackathon submission.
+- **License**: [MIT License](LICENSE)
